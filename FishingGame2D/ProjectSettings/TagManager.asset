@@ -15,6 +15,7 @@ TagManager:
   - FishingBag
   - Hanger
   - Mouth
+  - Destroyer
   layers:
   - Default
   - TransparentFX
