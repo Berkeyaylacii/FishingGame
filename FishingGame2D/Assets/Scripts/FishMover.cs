@@ -12,16 +12,7 @@ public class FishMover : MonoBehaviour
 
     TextMeshProUGUI score_txt;
 
-    /*public Transform[] waypoints1;
-    private int _currWaypointIndex = 0;
-    private float _speed = 1f;*/
-
-   // public Transform[] waypoints2;
-   // public Transform[] waypoints3;
-    //public Transform[] waypoints4;
-
     public bool ifFishHooked = false;
-
     public float _speed = 2f;
 
     void Start()
@@ -43,10 +34,9 @@ public class FishMover : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {   
         if (collision.gameObject.tag == "Hook" )
-        {       
+        {
                 ifFishHooked = true;
-
-                
+                    
                 if (fish.transform.rotation.eulerAngles.y == 180)
                 {
                     fish.transform.rotation = Quaternion.identity ;
@@ -65,6 +55,14 @@ public class FishMover : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+       
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Debug.Log("çarptý");        
+            Destroy(gameObject);
+        }
+        
 
         if (collision.gameObject.tag == "Destroyer")
         {      

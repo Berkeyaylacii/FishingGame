@@ -459,8 +459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fish: {fileID: 8150136623969811777}
-  obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
   rbofFish: {fileID: 1136369364}
+  ifFishHooked: 0
   _speed: 2
 --- !u!50 &1136369364
 Rigidbody2D:

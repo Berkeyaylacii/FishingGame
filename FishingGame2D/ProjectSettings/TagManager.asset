@@ -16,6 +16,7 @@ TagManager:
   - Hanger
   - Mouth
   - Destroyer
+  - Obstacle
   layers:
   - Default
   - TransparentFX

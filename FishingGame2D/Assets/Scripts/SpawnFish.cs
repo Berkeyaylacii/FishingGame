@@ -11,7 +11,7 @@ public class SpawnFish : MonoBehaviour
     void Start()
     {
         InvokeRepeating("CreateFish", 0.0f, 2f);
-        InvokeRepeating("CreateObstacle", 0.0f, 5f);
+        InvokeRepeating("CreateObstacle", 0.0f, 3f);
     }
 
     // Update is called once per frame
