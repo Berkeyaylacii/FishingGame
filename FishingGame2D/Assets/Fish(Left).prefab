@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6935356590692273493}
   - component: {fileID: 5981593562247641523}
   - component: {fileID: 3559783946019020264}
-  - component: {fileID: -8994731178842636488}
+  - component: {fileID: -5444817484338697622}
   - component: {fileID: 1136369364}
   m_Layer: 0
-  m_Name: Fish
+  m_Name: Fish(Left)
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150136623969811777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 40.557755, y: 0.02, z: 0}
   m_LocalScale: {x: 0.0928125, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &5981593562247641523
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ PolygonCollider2D:
       - {x: -2.0277624, y: -4.5126505}
       - {x: -1.8988296, y: -4.465766}
       - {x: -1.6644062, y: -4.325112}
---- !u!114 &-8994731178842636488
+--- !u!114 &-5444817484338697622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8150136623969811777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5362394a1448a3b40b8013137fa33ef7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0db246b4ff460db45a709d77c6cb5e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fish: {fileID: 8150136623969811777}

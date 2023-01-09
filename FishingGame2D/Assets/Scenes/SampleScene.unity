@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 324595309}
   m_Layer: 0
   m_Name: worm
-  m_TagString: Untagged
+  m_TagString: Worm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1030,6 +1030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fish: {fileID: 8150136623969811777, guid: 26bcfac6bcd9b18478d0e9fe07a2abf4, type: 3}
+  worm: {fileID: 324595307}
   colliderofHook: {fileID: 664940409}
 --- !u!1 &774532066
 GameObject:
@@ -1624,6 +1625,7 @@ GameObject:
   - component: {fileID: 664940409}
   - component: {fileID: 664940406}
   - component: {fileID: 664940416}
+  - component: {fileID: 7839610023805137139}
   - component: {fileID: 664940418}
   m_Layer: 0
   m_Name: hook
@@ -1774,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2384087540258357607, guid: cda5b11633044784da7e5d23073426f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.71
+      value: 3.3
       objectReference: {fileID: 0}
     - target: {fileID: 2384087540258357607, guid: cda5b11633044784da7e5d23073426f7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1812,6 +1814,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: hook
       objectReference: {fileID: 0}
+    - target: {fileID: 8896697388326559717, guid: cda5b11633044784da7e5d23073426f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896697388326559717, guid: cda5b11633044784da7e5d23073426f7, type: 3}
+      propertyPath: m_TagString
+      value: Worm
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cda5b11633044784da7e5d23073426f7, type: 3}
 --- !u!4 &7839610023805137138
@@ -1822,8 +1832,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357840924576120227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71, z: 1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 3.3, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.115, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 774532067}
@@ -1832,3 +1842,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7839610023805137139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357840924576120227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d1c328aa228a345afbe0e0e5ad6335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fish: {fileID: 8150136623969811777, guid: 8a25e578659ee6a4fb0f15fa80bc5aa6, type: 3}
+  obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
+  _speed: 3

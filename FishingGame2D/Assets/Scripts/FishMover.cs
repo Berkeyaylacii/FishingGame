@@ -5,6 +5,7 @@ using TMPro;
 
 public class FishMover : MonoBehaviour
 {
+    public GameObject worm;
 
     public GameObject fish;
 
@@ -17,6 +18,8 @@ public class FishMover : MonoBehaviour
 
     void Start()
     {
+        worm = GameObject.FindGameObjectWithTag("Worm");
+
         score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
     }
 
@@ -25,7 +28,7 @@ public class FishMover : MonoBehaviour
     {
         if(ifFishHooked == false)
         {   
-            transform.position += Vector3.right * Time.deltaTime * _speed;         
+            transform.position += Vector3.left * Time.deltaTime * _speed;         
         }
 
     }
@@ -51,23 +54,21 @@ public class FishMover : MonoBehaviour
             float skor = float.Parse(score_txt.text);
             skor = skor + 1;
             score_txt.text = skor.ToString();
-            Debug.Log(skor);
 
             Destroy(gameObject);
-        }
-
-       
-        if (collision.gameObject.tag == "Obstacle")
-        {
-            Debug.Log("çarptý");        
-            Destroy(gameObject);
-        }
-        
+        }    
 
         if (collision.gameObject.tag == "Destroyer")
         {      
             Destroy(gameObject);
         }
 
+        if (collision.gameObject.tag == "Obstacle" && ifFishHooked == true)
+        {
+            Debug.Log("Balýk varken çarptý");        
+            Destroy(gameObject);
+        }
     }
+
+
 }
