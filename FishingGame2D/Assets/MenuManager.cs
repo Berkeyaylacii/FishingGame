@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -22,5 +23,10 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadGamee()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }

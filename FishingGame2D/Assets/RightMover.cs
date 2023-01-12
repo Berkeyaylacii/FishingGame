@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class RightMover : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class RightMover : MonoBehaviour
         if (collision.gameObject.tag == "Hook")
         {
             ifFishHooked = true;
+
+            transform.DOShakeRotation(5, Vector3.forward * 45, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
+            {
+                transform.rotation = Quaternion.identity;
+            });
 
             transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);
             transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(-0.5f, 0, 0);
