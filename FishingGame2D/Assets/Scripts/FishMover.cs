@@ -6,8 +6,6 @@ using DG.Tweening;
 
 public class FishMover : MonoBehaviour
 {
-    public GameObject worm;
-
     public GameObject fish;
 
     public Rigidbody2D rbofFish;
@@ -19,7 +17,6 @@ public class FishMover : MonoBehaviour
 
     void Start()
     {
-        worm = GameObject.FindGameObjectWithTag("Worm");
 
         score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
     }
@@ -47,18 +44,19 @@ public class FishMover : MonoBehaviour
                 }
 
 
-         transform.DOShakeRotation(5, Vector3.forward * 45, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
+         transform.DOShakeRotation(5, Vector3.forward * 10, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
          {
              transform.rotation = Quaternion.identity;
          });
 
 
             transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);
-            transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(0.5f, 0, 0);              
+            transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(0.3f, 0, 0);              
         }
 
         if(collision.gameObject.tag == "FishingBag" )
         {
+
             float skor = float.Parse(score_txt.text);
             skor = skor + 1;
             score_txt.text = skor.ToString();

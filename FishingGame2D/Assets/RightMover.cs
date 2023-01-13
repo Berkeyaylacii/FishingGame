@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class RightMover : MonoBehaviour
 {
+
     public GameObject fish;
 
     public Rigidbody2D rbofFish;
@@ -37,13 +38,13 @@ public class RightMover : MonoBehaviour
         {
             ifFishHooked = true;
 
-            transform.DOShakeRotation(5, Vector3.forward * 45, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
+            transform.DOShakeRotation(5, Vector3.forward * 10, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
             {
                 transform.rotation = Quaternion.identity;
             });
 
             transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);
-            transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(-0.5f, 0, 0);
+            transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(-0.3f, 0, 0);
         }
 
         if (collision.gameObject.tag == "FishingBag")
@@ -55,14 +56,13 @@ public class RightMover : MonoBehaviour
             Destroy(gameObject);
         }
 
-
         if (collision.gameObject.tag == "Destroyer")
         {
             Destroy(gameObject);
         }
 
         if (collision.gameObject.tag == "Obstacle" && ifFishHooked == true)
-        {
+        {   
             Debug.Log("Balýk varken çarptý");
             Destroy(gameObject);
         }

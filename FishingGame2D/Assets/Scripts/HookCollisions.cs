@@ -33,6 +33,7 @@ public class HookCollisions : MonoBehaviour
             worm.gameObject.SetActive(false);
             colliderofHook.enabled = false;
         }
+
     }
 
     private void enableCollider()

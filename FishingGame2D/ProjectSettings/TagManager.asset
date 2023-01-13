@@ -18,6 +18,8 @@ TagManager:
   - Destroyer
   - Obstacle
   - Worm
+  - Hand
+  - Score
   layers:
   - Default
   - TransparentFX
