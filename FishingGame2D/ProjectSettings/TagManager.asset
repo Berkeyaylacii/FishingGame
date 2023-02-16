@@ -20,6 +20,10 @@ TagManager:
   - Worm
   - Hand
   - Score
+  - Upgrade1
+  - BagText
+  - BaitCount
+  - BaitCountText
   layers:
   - Default
   - TransparentFX

@@ -12,13 +12,18 @@ public class RightMover : MonoBehaviour
     public Rigidbody2D rbofFish;
 
     TextMeshProUGUI score_txt;
+    TextMeshProUGUI baitCount_txt;
 
     public bool ifFishHooked = false;
     public float _speed = 2f;
     // Start is called before the first frame update
+
+    
     void Start()
     {
         score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
+
+        baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -65,6 +70,17 @@ public class RightMover : MonoBehaviour
         {   
             Debug.Log("Balýk varken çarptý");
             Destroy(gameObject);
+
+            float skor = float.Parse(baitCount_txt.text);
+            if (skor > 0)
+            {
+                skor = skor - 1;
+                baitCount_txt.text = skor.ToString();
+            }
+            else
+            {
+                Debug.Log("Game OVer !");
+            }
         }
 
     }

@@ -10,9 +10,15 @@ public class MenuManager : MonoBehaviour
 {
     GameObject hook;
     GameObject hand;
-    //GameObject score;
+    GameObject upgrade1;
+    GameObject fishingBagText;
+    GameObject baitCountText;
+
+    public GameObject fishCaller;
 
     [SerializeField] private TextMeshProUGUI tap_txt;
+    [SerializeField] private TextMeshProUGUI baitCount_txt;
+
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
 
@@ -25,11 +31,19 @@ public class MenuManager : MonoBehaviour
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
         score = GameObject.FindGameObjectWithTag("Score");
+        upgrade1 = GameObject.FindGameObjectWithTag("Upgrade1");
+        fishingBagText = GameObject.FindGameObjectWithTag("BagText");
+        baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
         hook.GetComponent<SpawnFish>().enabled = false;
 
         hook.SetActive(false);
         score.SetActive(false);
+        fishCaller.SetActive(false);
+        baitCountText.SetActive(false);
         mainCamera = Camera.main;
+
+        baitCount_txt.SetText("3");
+
         tap_txt.transform.DOScale(1.1f, 0.5f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);
     }
@@ -41,11 +55,21 @@ public class MenuManager : MonoBehaviour
     }
 
     public void MoveCamera()
-    {
+    {   
         mainCamera.transform.Translate(0, -8.5f, 0);
         hook.SetActive(true);
         hand.SetActive(false);
         score.SetActive(true);
+        upgrade1.SetActive(false);
+        fishingBagText.SetActive(false);
+        baitCountText.SetActive(true);
         hook.GetComponent<SpawnFish>().enabled = true; 
+    }
+
+    public void UpgradeRoad1()
+    {
+        upgrade1.SetActive(false);
+        fishCaller.SetActive(true);
+
     }
 }

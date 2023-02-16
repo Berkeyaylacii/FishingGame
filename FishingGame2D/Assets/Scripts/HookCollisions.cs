@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HookCollisions : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class HookCollisions : MonoBehaviour
     public GameObject worm;
 
     public Collider2D colliderofHook;
+
+    [SerializeField] private TextMeshProUGUI baitCount_txt;
     // Start is called before the first frame update
     void Start()
     {
