@@ -5,23 +5,33 @@ using TMPro;
 
 public class HookCollisions : MonoBehaviour
 {
+    public GameOverScreen gameOverScreen;
+
     public GameObject fish;
 
     public GameObject worm;
 
     public Collider2D colliderofHook;
 
-    [SerializeField] private TextMeshProUGUI baitCount_txt;
-    // Start is called before the first frame update
+    [SerializeField] public TextMeshProUGUI baitCount_txt;
+
+    private bool hasEntered = false;
     void Start()
     {
-        
+        baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         enableCollider();
+
+        if (baitCount_txt.text == "0")
+        {
+            gameObject.SetActive(false);
+            gameOverScreen.GameOver();
+            Time.timeScale = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,10 +41,18 @@ public class HookCollisions : MonoBehaviour
             colliderofHook.enabled = false;
         }
 
-        if(collision.gameObject.tag == "Obstacle") 
+        if (collision.gameObject.tag == "Obstacle") 
         {
-            worm.gameObject.SetActive(false);
             colliderofHook.enabled = false;
+            worm.gameObject.SetActive(false);
+            
+            float skor = float.Parse(baitCount_txt.text);
+            if (skor > 0 )
+            {
+                skor = skor - 1;
+                Debug.Log("Objeye çarptý yem düþtü -1");
+                baitCount_txt.text = skor.ToString();
+            }
         }
 
     }
@@ -45,8 +63,8 @@ public class HookCollisions : MonoBehaviour
         {
             colliderofHook.enabled = true;
             worm.gameObject.SetActive(true);
+
         }
     }
-
 
 }

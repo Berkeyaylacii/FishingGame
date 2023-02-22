@@ -14,25 +14,12 @@ public class WormColliders : MonoBehaviour
 
         if (collision.gameObject.tag == "Fish")
         {
-            Debug.Log("Yem yendi");
             this.gameObject.SetActive(false);
         }
 
         if (collision.gameObject.tag == "Obstacle")
         {
-            Debug.Log("Yem düþtü !");
             this.gameObject.SetActive(false);
-
-            float skor = float.Parse(baitCount_txt.text);
-            if (skor >= 0)
-            {
-                skor = skor - 1;
-                baitCount_txt.text = skor.ToString();
-            }
-            else
-            {
-                Debug.Log("Game OVer !");
-            }
         }
 
     }

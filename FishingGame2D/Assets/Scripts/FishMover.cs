@@ -3,27 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class FishMover : MonoBehaviour
 {
+    public GameObject GameOverPanel;
+
     public GameObject fish;
 
     public Rigidbody2D rbofFish;
 
-    TextMeshProUGUI score_txt;
-    TextMeshProUGUI baitCount_txt;
+    public GameObject hook;
 
+    TextMeshProUGUI score_txt;
+    
     public bool ifFishHooked = false;
     public float _speed = 2f;
 
-    
+    TextMeshProUGUI baitCount_txt;
 
     void Start()
     {
-
         score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
 
         baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
+
+        hook = GameObject.FindGameObjectWithTag("Hook");
+        hook.SetActive(true);
+
+        GameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
+
     }
 
 
@@ -34,6 +43,12 @@ public class FishMover : MonoBehaviour
             transform.position += Vector3.left * Time.deltaTime * _speed;         
         }
 
+        if(baitCount_txt.text == "0")
+        {
+            hook.SetActive(false);
+            GameOver();
+            Time.timeScale = 0;
+        }
     }
 
 
@@ -74,23 +89,27 @@ public class FishMover : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Obstacle" && ifFishHooked == true)
-        {
-            Debug.Log("Balýk varken çarptý");        
+
+        if (collision.gameObject.tag == "Obstacle" && ifFishHooked == true )
+        {   
+            
             Destroy(gameObject);
 
             float skor = float.Parse(baitCount_txt.text);
             if (skor > 0)
             {
                 skor = skor - 1;
+                Debug.Log("Balýk varken Yem düþtü -1");
                 baitCount_txt.text = skor.ToString();
+
             }
-            else
-            {
-                Debug.Log("Game OVer !");
-            }
+     
         }
     }
 
+    public void GameOver()
+    {
+        GameOverPanel.SetActive(true);
+    }
 
 }

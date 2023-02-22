@@ -6,27 +6,33 @@ using DG.Tweening;
 
 public class RightMover : MonoBehaviour
 {
+    public GameObject GameOverPanel;
 
     public GameObject fish;
 
     public Rigidbody2D rbofFish;
 
-    TextMeshProUGUI score_txt;
-    TextMeshProUGUI baitCount_txt;
+    public GameObject hook;
+
+    TextMeshProUGUI score_txt; 
 
     public bool ifFishHooked = false;
     public float _speed = 2f;
-    // Start is called before the first frame update
 
-    
+    TextMeshProUGUI baitCount_txt;
+
     void Start()
     {
         score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
 
         baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
+
+        hook = GameObject.FindGameObjectWithTag("Hook");
+        hook.SetActive(true);
+
+        GameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (ifFishHooked == false)
@@ -34,6 +40,12 @@ public class RightMover : MonoBehaviour
             transform.position += Vector3.right * Time.deltaTime * _speed;
         }
 
+        if (baitCount_txt.text == "0")
+        {
+            hook.SetActive(false);
+            GameOver();
+            Time.timeScale = 0;
+        }
     }
 
 
@@ -66,22 +78,27 @@ public class RightMover : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+
         if (collision.gameObject.tag == "Obstacle" && ifFishHooked == true)
         {   
-            Debug.Log("Balýk varken çarptý");
             Destroy(gameObject);
 
-            float skor = float.Parse(baitCount_txt.text);
+           float skor = float.Parse(baitCount_txt.text);
             if (skor > 0)
             {
                 skor = skor - 1;
+                Debug.Log("Balýk varken Yem düþtü -1");
                 baitCount_txt.text = skor.ToString();
-            }
-            else
-            {
-                Debug.Log("Game OVer !");
+
             }
         }
 
     }
+
+    public void GameOver()
+    {
+        GameOverPanel.SetActive(true);
+    }
+
 }

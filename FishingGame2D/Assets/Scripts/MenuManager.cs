@@ -8,11 +8,14 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameOverScreen gameOverScreen;
+
     GameObject hook;
     GameObject hand;
     GameObject upgrade1;
     GameObject fishingBagText;
     GameObject baitCountText;
+    GameObject gameOverPanel;
 
     public GameObject fishCaller;
 
@@ -34,12 +37,14 @@ public class MenuManager : MonoBehaviour
         upgrade1 = GameObject.FindGameObjectWithTag("Upgrade1");
         fishingBagText = GameObject.FindGameObjectWithTag("BagText");
         baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
+        gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
         hook.GetComponent<SpawnFish>().enabled = false;
 
         hook.SetActive(false);
         score.SetActive(false);
         fishCaller.SetActive(false);
         baitCountText.SetActive(false);
+        gameOverPanel.SetActive(false);
         mainCamera = Camera.main;
 
         baitCount_txt.SetText("3");
@@ -70,6 +75,6 @@ public class MenuManager : MonoBehaviour
     {
         upgrade1.SetActive(false);
         fishCaller.SetActive(true);
-
     }
+
 }

@@ -24,6 +24,7 @@ TagManager:
   - BagText
   - BaitCount
   - BaitCountText
+  - GameOverPanel
   layers:
   - Default
   - TransparentFX
