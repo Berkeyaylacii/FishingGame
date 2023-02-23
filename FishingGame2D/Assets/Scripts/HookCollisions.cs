@@ -26,12 +26,6 @@ public class HookCollisions : MonoBehaviour
     {
         enableCollider();
 
-        if (baitCount_txt.text == "0")
-        {
-            gameObject.SetActive(false);
-            gameOverScreen.GameOver();
-            Time.timeScale = 0;
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

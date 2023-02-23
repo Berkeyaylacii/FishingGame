@@ -42,13 +42,6 @@ public class FishMover : MonoBehaviour
         {   
             transform.position += Vector3.left * Time.deltaTime * _speed;         
         }
-
-        if(baitCount_txt.text == "0")
-        {
-            hook.SetActive(false);
-            GameOver();
-            Time.timeScale = 0;
-        }
     }
 
 
@@ -107,9 +100,5 @@ public class FishMover : MonoBehaviour
         }
     }
 
-    public void GameOver()
-    {
-        GameOverPanel.SetActive(true);
-    }
 
 }

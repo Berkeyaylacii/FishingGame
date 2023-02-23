@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baabb0868950f7438dbdef47a1726fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 1959178472}
+  gameOverScreen: {fileID: 0}
   fish: {fileID: 8150136623969811777, guid: 26bcfac6bcd9b18478d0e9fe07a2abf4, type: 3}
   worm: {fileID: 324595307}
   colliderofHook: {fileID: 664940409}
@@ -2792,7 +2792,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1829893068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070146818}
+        m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1829893068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2842,7 +2854,6 @@ GameObject:
   - component: {fileID: 1959178469}
   - component: {fileID: 1959178471}
   - component: {fileID: 1959178470}
-  - component: {fileID: 1959178472}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: GameOverPanel
@@ -2909,18 +2920,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959178468}
   m_CullTransparentMesh: 1
---- !u!114 &1959178472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959178468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f3652fc814c0042bb3112e850e50c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1978490085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3042,6 +3041,7 @@ GameObject:
   - component: {fileID: 2070146814}
   - component: {fileID: 2070146813}
   - component: {fileID: 2070146817}
+  - component: {fileID: 2070146818}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3150,12 +3150,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb9022120760de4a82ae305cfc46074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 1959178472}
+  gameOverScreen: {fileID: 0}
   fishCaller: {fileID: 959231580}
   tap_txt: {fileID: 1228278391}
   baitCount_txt: {fileID: 289741431}
   hand_icon: {fileID: 1469419017}
   score: {fileID: 15647694}
+--- !u!114 &2070146818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070146812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f3652fc814c0042bb3112e850e50c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameOverPanel: {fileID: 1959178468}
+  baitCount_txt: {fileID: 289741431}
+  score: {fileID: 15647696}
 --- !u!1 &2078332263
 GameObject:
   m_ObjectHideFlags: 0

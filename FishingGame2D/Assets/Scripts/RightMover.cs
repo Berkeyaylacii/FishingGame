@@ -40,12 +40,6 @@ public class RightMover : MonoBehaviour
             transform.position += Vector3.right * Time.deltaTime * _speed;
         }
 
-        if (baitCount_txt.text == "0")
-        {
-            hook.SetActive(false);
-            GameOver();
-            Time.timeScale = 0;
-        }
     }
 
 
@@ -96,9 +90,5 @@ public class RightMover : MonoBehaviour
 
     }
 
-    public void GameOver()
-    {
-        GameOverPanel.SetActive(true);
-    }
 
 }
