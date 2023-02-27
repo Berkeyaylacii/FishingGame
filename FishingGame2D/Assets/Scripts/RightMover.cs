@@ -78,12 +78,13 @@ public class RightMover : MonoBehaviour
         {   
             Destroy(gameObject);
 
-           float skor = float.Parse(baitCount_txt.text);
-            if (skor > 0)
+           float baitct = float.Parse(baitCount_txt.text);
+            if (baitct > 0)
             {
-                skor = skor - 1;
+
+                baitct = baitct - 1;
                 Debug.Log("Balýk varken Yem düþtü -1");
-                baitCount_txt.text = skor.ToString();
+                baitCount_txt.text = baitct.ToString();
 
             }
         }

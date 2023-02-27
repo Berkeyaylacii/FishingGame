@@ -15,7 +15,8 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI baitCount_txt;
 
-    private bool hasEntered = false;
+    public float baitct;
+
     void Start()
     {
         baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
@@ -24,8 +25,8 @@ public class HookCollisions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enableCollider();
-
+        enableCollider(); //enable collider if hook moved up to renew the bait
+        baitct = float.Parse(baitCount_txt.text);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,13 +41,14 @@ public class HookCollisions : MonoBehaviour
             colliderofHook.enabled = false;
             worm.gameObject.SetActive(false);
             
-            float skor = float.Parse(baitCount_txt.text);
-            if (skor > 0 )
+            if(baitct > 0)
             {
-                skor = skor - 1;
+                baitct = baitct - 1;
                 Debug.Log("Objeye çarptý yem düþtü -1");
-                baitCount_txt.text = skor.ToString();
+                baitCount_txt.text = baitct.ToString();
             }
+
+            
         }
 
     }
