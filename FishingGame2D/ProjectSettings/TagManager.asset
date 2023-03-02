@@ -25,6 +25,7 @@ TagManager:
   - BaitCount
   - BaitCountText
   - GameOverPanel
+  - HookedFish
   layers:
   - Default
   - TransparentFX

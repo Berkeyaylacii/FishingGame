@@ -489,8 +489,6 @@ GameObject:
   m_Component:
   - component: {fileID: 324595308}
   - component: {fileID: 324595309}
-  - component: {fileID: 324595310}
-  - component: {fileID: 324595311}
   m_Layer: 0
   m_Name: worm
   m_TagString: Worm
@@ -565,35 +563,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &324595310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324595307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1fd811235927964a8b9278ee592cfe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baitCount_txt: {fileID: 289741431}
---- !u!58 &324595311
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324595307}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.18022822, y: -0.28365654}
-  serializedVersion: 2
-  m_Radius: 2.9493165
 --- !u!1 &480829170
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +574,7 @@ GameObject:
   - component: {fileID: 480829173}
   - component: {fileID: 480829172}
   - component: {fileID: 480829174}
+  - component: {fileID: 480829175}
   m_Layer: 0
   m_Name: Spawner 2
   m_TagString: Destroyer
@@ -708,6 +678,20 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
+--- !u!114 &480829175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480829170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6143129ba2702e44292b8a3cf6794699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fish: {fileID: 1950280653096967214, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  Obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,18 +1097,6 @@ PolygonCollider2D:
       - {x: -0.39758924, y: -0.50000006}
       - {x: 0.45999578, y: -0.5693558}
       - {x: 0.5, y: 0.5}
---- !u!114 &664940406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357840924576120227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437c64006f18f7a40a48b18defb030d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &664940409
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1222,7 +1194,7 @@ PolygonCollider2D:
       - {x: -1.405, y: 1.035}
       - {x: -1.405, y: 2.705}
       - {x: -1.375, y: 2.825}
-      - {x: -1.295, y: 2.975}
+      - {x: -1.3965575, y: 1.3633263}
       - {x: -1.025, y: 3.345}
       - {x: -0.935, y: 3.465}
       - {x: -0.825, y: 3.715}
@@ -1323,21 +1295,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &664940416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357840924576120227}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806bb7257c0220445882021732b35484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fish: {fileID: 8150136623969811777, guid: 26bcfac6bcd9b18478d0e9fe07a2abf4, type: 3}
-  obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
-  _speed: 3
 --- !u!114 &664940418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,11 +1307,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baabb0868950f7438dbdef47a1726fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
-  fish: {fileID: 8150136623969811777, guid: 26bcfac6bcd9b18478d0e9fe07a2abf4, type: 3}
+  fish: {fileID: 1950280653096967214, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  rbofFish: {fileID: 161788339554904435, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  hook: {fileID: 357840924576120227}
   worm: {fileID: 324595307}
   colliderofHook: {fileID: 664940409}
   baitCount_txt: {fileID: 289741431}
+  score_txt: {fileID: 15647696}
+  ifHooked: 0
 --- !u!1 &774532066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,7 +1600,6 @@ GameObject:
   - component: {fileID: 959231581}
   - component: {fileID: 959231584}
   - component: {fileID: 959231583}
-  - component: {fileID: 959231582}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1663,19 +1622,6 @@ Transform:
   m_Father: {fileID: 7839610023805137138}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &959231582
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959231580}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &959231583
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1821,6 +1767,7 @@ GameObject:
   - component: {fileID: 1090007861}
   - component: {fileID: 1090007860}
   - component: {fileID: 1090007862}
+  - component: {fileID: 1090007863}
   m_Layer: 0
   m_Name: Spawner 1
   m_TagString: Destroyer
@@ -1924,6 +1871,20 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
+--- !u!114 &1090007863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090007858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6143129ba2702e44292b8a3cf6794699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fish: {fileID: 1950280653096967214, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  Obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
 --- !u!1 &1200492484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1948,7 +1909,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200492484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: -3.9, z: -10.786144}
+  m_LocalPosition: {x: 0.4, y: -3.8, z: -10.786144}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2475,6 +2436,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552773429}
   m_CullTransparentMesh: 1
+--- !u!1 &1711213092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1711213095}
+  - component: {fileID: 1711213093}
+  m_Layer: 0
+  m_Name: FishManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1711213093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711213092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c291e0ab1b73374d880a9a46d8f2f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fish: {fileID: 1950280653096967214, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  Obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
+  _Rightspeed: 3
+  _Leftspeed: 3
+--- !u!4 &1711213095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711213092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.24, y: -0.43390167, z: -1.1847742}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749687229
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,10 +3411,9 @@ GameObject:
   - component: {fileID: 3655672192482427924}
   - component: {fileID: 664940413}
   - component: {fileID: 664940409}
-  - component: {fileID: 664940406}
-  - component: {fileID: 664940416}
   - component: {fileID: 7839610023805137139}
   - component: {fileID: 664940418}
+  - component: {fileID: 7839610023805137140}
   m_Layer: 0
   m_Name: hook
   m_TagString: Hook
@@ -3554,9 +3562,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 357840924576120227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d1c328aa228a345afbe0e0e5ad6335, type: 3}
+  m_Script: {fileID: 11500000, guid: 437c64006f18f7a40a48b18defb030d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fish: {fileID: 8150136623969811777, guid: 8a25e578659ee6a4fb0f15fa80bc5aa6, type: 3}
-  obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
-  _speed: 3
+--- !u!61 &7839610023805137140
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357840924576120227}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.32019877, y: -2.9770956}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.39, y: 10.23}
+    newSize: {x: 5.39, y: 10.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 10.069824, y: 4.2758083}
+  m_EdgeRadius: 0

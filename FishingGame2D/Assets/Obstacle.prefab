@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2951763571849169362}
   - component: {fileID: 5622640170827144954}
   - component: {fileID: 2286957749557862728}
-  - component: {fileID: -9086713591494491390}
   - component: {fileID: -4192848587034042916}
   m_Layer: 0
   m_Name: Obstacle
@@ -123,20 +122,6 @@ PolygonCollider2D:
       - {x: -8.015717, y: -6.2141953}
       - {x: -5.5933647, y: -10.291834}
       - {x: 6.6132917, y: -10.423521}
---- !u!114 &-9086713591494491390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7665049262273728664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e305feea8d73022468bbe79c3905203d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacle: {fileID: 7665049262273728664}
-  _speed: 2
 --- !u!50 &-4192848587034042916
 Rigidbody2D:
   serializedVersion: 4
@@ -147,11 +132,11 @@ Rigidbody2D:
   m_GameObject: {fileID: 7665049262273728664}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

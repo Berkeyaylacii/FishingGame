@@ -11,11 +11,11 @@ public class MenuManager : MonoBehaviour
     public GameOverScreen gameOverScreen;
 
     GameObject hook;
-    GameObject hand;
-    GameObject upgrade1;
-    GameObject fishingBagText;
+    GameObject hand;           //Main Menu icon
+    GameObject upgrade1;       //Main Menu button
+    GameObject fishingBagText; //Main Menu button
     GameObject baitCountText;
-    GameObject gameOverPanel;
+    GameObject gameOverPanel;  
 
     public GameObject fishCaller;
 
@@ -38,7 +38,8 @@ public class MenuManager : MonoBehaviour
         fishingBagText = GameObject.FindGameObjectWithTag("BagText");
         baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
         gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
-        hook.GetComponent<SpawnFish>().enabled = false;
+
+        //hook.GetComponent<SpawnFish>().enabled = false;
 
         hook.SetActive(false);
         score.SetActive(false);
@@ -68,7 +69,7 @@ public class MenuManager : MonoBehaviour
         upgrade1.SetActive(false);
         fishingBagText.SetActive(false);
         baitCountText.SetActive(true);
-        hook.GetComponent<SpawnFish>().enabled = true; 
+        //hook.GetComponent<SpawnFish>().enabled = true; 
     }
 
     public void UpgradeRoad1()
