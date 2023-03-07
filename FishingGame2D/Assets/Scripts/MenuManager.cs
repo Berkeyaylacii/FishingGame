@@ -34,8 +34,6 @@ public class MenuManager : MonoBehaviour
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
         score = GameObject.FindGameObjectWithTag("Score");
-        upgrade1 = GameObject.FindGameObjectWithTag("Upgrade1");
-        fishingBagText = GameObject.FindGameObjectWithTag("BagText");
         baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
         gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
 
@@ -66,8 +64,6 @@ public class MenuManager : MonoBehaviour
         hook.SetActive(true);
         hand.SetActive(false);
         score.SetActive(true);
-        upgrade1.SetActive(false);
-        fishingBagText.SetActive(false);
         baitCountText.SetActive(true);
         //hook.GetComponent<SpawnFish>().enabled = true; 
     }
