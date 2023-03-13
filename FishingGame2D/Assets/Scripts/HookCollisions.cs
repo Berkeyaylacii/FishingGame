@@ -45,7 +45,7 @@ public class HookCollisions : MonoBehaviour
         {   
             ifHooked = true;
 
-            //colliderofHook.enabled = false;                      //remove the collider of hook to catch fish only once
+            //colliderofHook.enabled = false;                     //remove the collider of hook to catch fish only once
             worm.gameObject.SetActive(false);                    //disappear the worm
 
             collision.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched

@@ -33,10 +33,10 @@ public class GameOverScreen : MonoBehaviour
 
     public void RestartGame()
     {
-        baitCount_txt.text = "3";
-        score.text = "0";
+        baitCount_txt.text = "1";
 
         GameOverPanel.SetActive(false);
         Time.timeScale = 1;
+        Debug.Log("Reklam izlendi ve 1 yem verildi");
     }
 }
