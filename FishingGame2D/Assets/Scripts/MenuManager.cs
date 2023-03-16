@@ -27,10 +27,19 @@ public class MenuManager : MonoBehaviour
 
     GameObject script;
 
+    float time;
+
     Camera mainCamera;
     // Start is called before the first frame update
+    Vector3 startPos;
+    Vector3 targetPos;
     void Start()
     {
+        mainCamera = Camera.main;
+
+        startPos = mainCamera.transform.position;
+        targetPos = new Vector3(0, 0, -10);
+
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
         score = GameObject.FindGameObjectWithTag("Score");
@@ -44,7 +53,7 @@ public class MenuManager : MonoBehaviour
         fishCaller.SetActive(false);
         baitCountText.SetActive(false);
         gameOverPanel.SetActive(false);
-        mainCamera = Camera.main;
+        
 
         baitCount_txt.SetText("3");
 
@@ -52,20 +61,25 @@ public class MenuManager : MonoBehaviour
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);
     }
 
+    private void Update()
+    {   
 
+        //mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, Time.deltaTime);
+    }
     public void LoadGamee()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    public void MoveCamera()
+    public void MoveCamera()     //Moves camera to play screen
     {   
-        mainCamera.transform.Translate(0, -8.5f, 0);
+        //mainCamera.transform.Translate(0, -8.5f, 0);
+
+        mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, Time.deltaTime * 2f);
         hook.SetActive(true);
         hand.SetActive(false);
         score.SetActive(true);
         baitCountText.SetActive(true);
-        //hook.GetComponent<SpawnFish>().enabled = true; 
     }
 
     public void UpgradeRoad1()

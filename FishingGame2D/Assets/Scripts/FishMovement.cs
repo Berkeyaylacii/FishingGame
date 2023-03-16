@@ -17,7 +17,7 @@ public class FishMovement : MonoBehaviour
 
     List<GameObject> leftSpawns = new List<GameObject>();
 
-
+    Vector3 rpos, lpos;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +33,19 @@ public class FishMovement : MonoBehaviour
     {   
         foreach(GameObject obj in rightSpawns)
         {   
-            if(obj != null && obj.transform.parent == null) { 
-                obj.transform.position += Vector3.right * Time.deltaTime * 2f;   
+            if(obj != null && obj.transform.parent == null) {
+                if(obj.tag == "Obstacle")
+                {
+                    rpos = obj.transform.position;
+                    rpos += Vector3.right * Time.deltaTime * 0.7f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.008f;
+                }
+                else
+                {
+                    rpos = obj.transform.position;
+                    rpos +=  Vector3.right * Time.deltaTime * 1.5f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.005f;
+                }                   
             }
         }
 
@@ -42,7 +53,18 @@ public class FishMovement : MonoBehaviour
         {
             if (obj != null && obj.transform.parent == null)
             {
-                obj.transform.position += Vector3.left * Time.deltaTime * 2f;
+                if (obj.tag == "Obstacle")
+                {
+                    rpos = obj.transform.position;
+                    rpos += Vector3.left * Time.deltaTime * 0.7f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.008f;
+                }
+                else
+                {
+                    rpos = obj.transform.position;
+                    rpos += Vector3.left * Time.deltaTime * 1.5f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.005f;
+                }
             }               
         }
     }
