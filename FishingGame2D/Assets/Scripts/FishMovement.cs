@@ -13,9 +13,9 @@ public class FishMovement : MonoBehaviour
 
     public float _Leftspeed = 3f;
 
-    List<GameObject> rightSpawns = new List<GameObject>();
+    public List<GameObject> rightSpawns = new List<GameObject>();
 
-    List<GameObject> leftSpawns = new List<GameObject>();
+    public List<GameObject> leftSpawns = new List<GameObject>();
 
     Vector3 rpos, lpos;
     // Start is called before the first frame update

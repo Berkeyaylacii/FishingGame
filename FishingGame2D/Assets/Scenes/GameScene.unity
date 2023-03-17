@@ -918,7 +918,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -2417,6 +2417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 2070146818}
+  FishManager: {fileID: 1711213092}
 --- !u!4 &1441023685
 Transform:
   m_ObjectHideFlags: 0
@@ -2714,6 +2715,8 @@ MonoBehaviour:
   Obstacle: {fileID: 7665049262273728664, guid: dfe10375e841b9b4e9cac1a35b83c1ef, type: 3}
   _Rightspeed: 3
   _Leftspeed: 3
+  rightSpawns: []
+  leftSpawns: []
 --- !u!4 &1711213095
 Transform:
   m_ObjectHideFlags: 0
@@ -2787,7 +2790,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Retry
+  m_text: 'Main Menu
 
 '
   m_isRightToLeft: 0
@@ -2976,7 +2979,7 @@ GameObject:
   - component: {fileID: 1829893068}
   - component: {fileID: 1829893067}
   m_Layer: 5
-  m_Name: RetryButton
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3046,7 +3049,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1829893068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2070146817}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ReturnMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1829893068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3102,7 +3117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1959178469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3393,11 +3408,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 2070146818}
-  fishCaller: {fileID: 959231580}
+  FishMovement: {fileID: 1711213093}
+  gameOverPanel: {fileID: 1959178468}
+  fishSpawner: {fileID: 1711213092}
   tap_txt: {fileID: 1228278391}
   baitCount_txt: {fileID: 289741431}
   hand_icon: {fileID: 1469419017}
   score: {fileID: 15647694}
+  moveCamera: 0
+  moveCameraToMenu: 0
+  isInMainMenu: 1
 --- !u!114 &2070146818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411,8 +3431,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverPanel: {fileID: 1959178468}
+  FishManager: {fileID: 1711213092}
+  menuManager: {fileID: 2070146817}
   baitCount_txt: {fileID: 289741431}
   score: {fileID: 15647696}
+  mainCamera: {fileID: 519420031}
 --- !u!1 &2078332263
 GameObject:
   m_ObjectHideFlags: 0

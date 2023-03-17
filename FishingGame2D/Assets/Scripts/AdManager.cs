@@ -7,6 +7,7 @@ using System;
 public class AdManager : MonoBehaviour
 {
     public GameOverScreen gameOverScreen;
+    public GameObject FishManager;
 
     private RewardedAd odulluReklam;
 
@@ -43,5 +44,6 @@ public class AdManager : MonoBehaviour
     void GiveReward(object sender, Reward e)
     {
         gameOverScreen.RestartGame();
+        FishManager.SetActive(true);
     }
 }
