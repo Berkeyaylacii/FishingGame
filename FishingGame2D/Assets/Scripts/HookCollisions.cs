@@ -20,6 +20,7 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI score_txt;
 
+
     public bool ifHooked = false;
     void Start()
     {   

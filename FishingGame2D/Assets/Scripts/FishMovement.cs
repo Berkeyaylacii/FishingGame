@@ -22,10 +22,10 @@ public class FishMovement : MonoBehaviour
     void Start()
     {
         InvokeRepeating("CreateFishRight", 1f, 3f);
-        InvokeRepeating("CreateObstacleRight", 5f, 3f);
+        InvokeRepeating("CreateObstacleRight", 5f, 7f);
 
         InvokeRepeating("CreateFishLeft", 3f, 4f);
-        InvokeRepeating("CreateObstacleLeft", 12.5f, 5f);
+        InvokeRepeating("CreateObstacleLeft", 12.5f, 12f);
     }
 
     // Update is called once per frame
@@ -38,13 +38,13 @@ public class FishMovement : MonoBehaviour
                 {
                     rpos = obj.transform.position;
                     rpos += Vector3.right * Time.deltaTime * 0.7f;
-                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.008f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.001f;
                 }
                 else
                 {
                     rpos = obj.transform.position;
                     rpos +=  Vector3.right * Time.deltaTime * 1.5f;
-                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.005f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.0005f;
                 }                   
             }
         }
@@ -57,13 +57,13 @@ public class FishMovement : MonoBehaviour
                 {
                     rpos = obj.transform.position;
                     rpos += Vector3.left * Time.deltaTime * 0.7f;
-                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.008f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.001f;
                 }
                 else
                 {
                     rpos = obj.transform.position;
                     rpos += Vector3.left * Time.deltaTime * 1.5f;
-                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.005f;
+                    obj.transform.position = rpos + obj.transform.up * Mathf.Sin(Time.time * 2f) * 0.0005f;
                 }
             }               
         }
@@ -71,25 +71,25 @@ public class FishMovement : MonoBehaviour
 
     void CreateFishRight()
     {
-        GameObject newFish = Instantiate(Fish, new Vector3(-8, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 180));
+        GameObject newFish = Instantiate(Fish, new Vector3(-5, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 180));
         rightSpawns.Add(newFish);
     }
 
     void CreateObstacleRight()
     {
-        GameObject newObst = Instantiate(Obstacle, new Vector3(-8, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 180));
+        GameObject newObst = Instantiate(Obstacle, new Vector3(-5, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 180));
         rightSpawns.Add(newObst);
     }
 
     void CreateFishLeft()
     {
-        GameObject newFish = Instantiate(Fish, new Vector3(8, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 0));
+        GameObject newFish = Instantiate(Fish, new Vector3(5, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 0));
         leftSpawns.Add(newFish);
     }
 
     void CreateObstacleLeft()
     {
-         GameObject newObst = Instantiate(Obstacle, new Vector3(8, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 0));
+         GameObject newObst = Instantiate(Obstacle, new Vector3(5, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 0));
         leftSpawns.Add(newObst);
     }
 
