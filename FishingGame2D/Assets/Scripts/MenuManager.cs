@@ -11,15 +11,21 @@ public class MenuManager : MonoBehaviour
     public GameOverScreen gameOverScreen;
 
     public FishMovement FishMovement;
+    public HookCollisions HookCollisions;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
     GameObject upgrade1;       //Main Menu button
     GameObject fishingBagText; //Main Menu button
     GameObject baitCountText;
+    GameObject bubbles;
+
     public GameObject gameOverPanel;  
 
     public GameObject fishSpawner;
+
+    public GameObject gameScoreGroup;
+    public GameObject totalScoreGroup;
 
     [SerializeField] private TextMeshProUGUI tap_txt;
     [SerializeField] private TextMeshProUGUI baitCount_txt;
@@ -37,36 +43,35 @@ public class MenuManager : MonoBehaviour
     //
     Vector3 startPos;
     Vector3 targetPos;
-    //float desiredDuration = 1f;
-    //float elapsedTime;
     float time;
 
     void Start()
-    {
+    {   
         mainCamera = Camera.main;
 
-        //fishingLine = GameObject.FindGameObjectWithTag("MainCamera").GetComponent(FishingLine).ena;
-
         startPos = mainCamera.transform.position;
-        targetPos = new Vector3(0, 0, -10);
+        targetPos = new Vector3(0, 1.15f, -10);
 
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
         score = GameObject.FindGameObjectWithTag("Score");
         baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
-        //gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
-        
-        //hook.GetComponent<SpawnFish>().enabled = false;
+        bubbles = GameObject.FindGameObjectWithTag("Bubbles");       
 
         hook.SetActive(false);
         score.SetActive(false);
         baitCountText.SetActive(false);
         gameOverPanel.SetActive(false);
         fishSpawner.SetActive(false);
-        
-        baitCount_txt.SetText("3");
+        bubbles.SetActive(false);
+
+        gameScoreGroup.SetActive(false);
+        totalScoreGroup.SetActive(true);
+
+
+       baitCount_txt.SetText("3");
          
-        tap_txt.transform.DOScale(1.1f, 0.5f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
+        tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
     }
 
@@ -75,17 +80,23 @@ public class MenuManager : MonoBehaviour
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
             //Debug.Log(moveCamera);
+            totalScoreGroup.SetActive(false);
+            bubbles.SetActive(true);
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
-            if(mainCamera.transform.position == new Vector3(0, 0, -10f))
-            {
+            if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
+            {            
+                gameScoreGroup.SetActive(true);
                 moveCamera = false;
-                time = 0;                   // Time set to 0 for Lerp to work correct way
+                time = 0;                    // Time set to 0 for Lerp to work correct way
             }
         }
 
-        if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working)
-        {
+        if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working) Game Scene -> Main Menu
+        {   
+            bubbles.SetActive(false);
+            
+            gameScoreGroup.SetActive(false); 
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(targetPos, new Vector3(0, 8.5f, -10f), time);  
 
@@ -100,11 +111,19 @@ public class MenuManager : MonoBehaviour
                 score.SetActive(true);
                 baitCountText.SetActive(false);
                 fishSpawner.SetActive(false);
+
+                HookCollisions.increaseTotalScore();
+                totalScoreGroup.SetActive(true);
+
+                HookCollisions.resetPoint();    //Reset game score when returning to main menu           
             }
         }
 
         if (isInMainMenu == true)
         {
+            bubbles.SetActive(false);
+            gameScoreGroup.SetActive(false);
+            totalScoreGroup.SetActive(true);
             if ( (FishMovement.rightSpawns != null) && (FishMovement.leftSpawns != null) )
              {
                 foreach (GameObject obj in FishMovement.rightSpawns)

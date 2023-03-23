@@ -77,7 +77,7 @@ public class FishMovement : MonoBehaviour
 
     void CreateObstacleRight()
     {
-        GameObject newObst = Instantiate(Obstacle, new Vector3(-5, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 180));
+        GameObject newObst = Instantiate(Obstacle, new Vector3(-5, Random.Range(0, -4), 0), Quaternion.Euler(180, 0, 190));
         rightSpawns.Add(newObst);
     }
 
@@ -89,7 +89,7 @@ public class FishMovement : MonoBehaviour
 
     void CreateObstacleLeft()
     {
-         GameObject newObst = Instantiate(Obstacle, new Vector3(5, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 0));
+         GameObject newObst = Instantiate(Obstacle, new Vector3(5, Random.Range(0, -4), 0), Quaternion.Euler(0, 0, 10));
         leftSpawns.Add(newObst);
     }
 

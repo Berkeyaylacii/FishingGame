@@ -20,21 +20,20 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI score_txt;
 
+    [SerializeField] public TextMeshProUGUI total_score_txt;
 
     public bool ifHooked = false;
+    public float reset = 0;
     void Start()
-    {   
-
-        baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
-        score_txt = GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>();
-
+    {
+        total_score_txt.text = PlayerPrefs.GetFloat("TotalScore").ToString();
         hook.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.position.y >= 3.3f)     //if fish is moved to boat position, to remove the fish from the hook
+        if (this.transform.position.y >= 3.9f)     //if fish is moved to boat position, to remove the fish from the hook
         {
             takeFishToBoat();
         }          
@@ -123,4 +122,18 @@ public class HookCollisions : MonoBehaviour
         score_txt.text = skor.ToString();
     }
 
+    public void resetPoint()
+    {
+        score_txt.text = reset.ToString();
+    }
+
+    public void increaseTotalScore()
+    {
+        float totalScore = float.Parse(total_score_txt.text);
+        float score = float.Parse(score_txt.text);
+        totalScore += score;
+
+        total_score_txt.text = totalScore.ToString();
+        PlayerPrefs.SetFloat("TotalScore", totalScore);
+    }
 }

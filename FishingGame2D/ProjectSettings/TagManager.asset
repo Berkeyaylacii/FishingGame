@@ -26,6 +26,8 @@ TagManager:
   - BaitCountText
   - GameOverPanel
   - HookedFish
+  - Bubbles
+  - TotalScore
   layers:
   - Default
   - TransparentFX
