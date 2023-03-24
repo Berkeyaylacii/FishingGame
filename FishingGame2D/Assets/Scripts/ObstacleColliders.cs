@@ -6,11 +6,15 @@ using TMPro;
 
 public class ObstacleColliders : MonoBehaviour
 {
-
+    public TextMeshProUGUI baitCount_txt;
     // Start is called before the first frame update
     void Start()
-    {
-
+    {   
+        if(GameObject.Find("Canvas/BaitCount") != null)
+        {
+            baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
+        }
+            
     }
 
     // Update is called once per frame
@@ -27,14 +31,14 @@ public class ObstacleColliders : MonoBehaviour
             {
                 Destroy(collision.gameObject);
 
-                /*float baitct = float.Parse(baitCount_txt.text);
+                float baitct = float.Parse(baitCount_txt.text);
 
                 if (baitct > 0)
                 {
                     baitct = baitct - 1;
                     Debug.Log("Balýk varken Yem düþtü -1");
                     baitCount_txt.text = baitct.ToString();
-                }*/
+                }
             }            
         }
     }
