@@ -84,7 +84,7 @@ public class HookCollisions : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "Obstacle" && ifHooked == true && worm.activeSelf == false)         //Oltada balýk varken objeye çarpýyor
+        /*if (collision.gameObject.tag == "Obstacle" && ifHooked == true && worm.activeSelf == false)         //Oltada balýk varken objeye çarpýyor
         {
             if (GameObject.FindGameObjectWithTag("HookedFish") != null)
             {
@@ -99,7 +99,7 @@ public class HookCollisions : MonoBehaviour
                         ifHooked = false;
                     }
             }
-        }
+        }*/
 
     }
 
