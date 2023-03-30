@@ -20,7 +20,8 @@ public class MenuManager : MonoBehaviour
     GameObject baitCountText;
     GameObject bubbles;
 
-    public GameObject gameOverPanel;  
+    public GameObject gameOverPanel;
+    public GameObject settingsPanel;
 
     public GameObject fishSpawner;
 
@@ -32,6 +33,10 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
+
+    [SerializeField] private AudioSource mainMenuSound;
+    [SerializeField] private AudioSource gameSceneSound;
+
 
     GameObject fishingLine;
     
@@ -62,6 +67,7 @@ public class MenuManager : MonoBehaviour
         score.SetActive(false);
         baitCountText.SetActive(false);
         gameOverPanel.SetActive(false);
+        settingsPanel.SetActive(false);
         fishSpawner.SetActive(false);
         bubbles.SetActive(false);
 
@@ -76,7 +82,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
             //Debug.Log(moveCamera);
@@ -85,23 +91,24 @@ public class MenuManager : MonoBehaviour
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
             if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
-            {            
+            {
                 gameScoreGroup.SetActive(true);
                 moveCamera = false;
                 time = 0;                    // Time set to 0 for Lerp to work correct way
             }
+            
         }
 
         if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working) Game Scene -> Main Menu
         {   
             bubbles.SetActive(false);
-            
+
             gameScoreGroup.SetActive(false); 
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(targetPos, new Vector3(0, 8.5f, -10f), time);  
 
             if (mainCamera.transform.position == new Vector3(0, 8.5f, -10f))
-            {   
+            {              
                 moveCameraToMenu = false;
                 time = 0;                 //Time set to 0 for Lerp to work correct way
                 isInMainMenu = true;      //flag to use hide gameover panel on another script
@@ -121,7 +128,9 @@ public class MenuManager : MonoBehaviour
 
         if (isInMainMenu == true)
         {
+            //mainMenuSound.Play();
             bubbles.SetActive(false);
+            //gameSceneSound.Play();               //Plays main menu sound
             gameScoreGroup.SetActive(false);
             totalScoreGroup.SetActive(true);
             if ( (FishMovement.rightSpawns != null) && (FishMovement.leftSpawns != null) )
@@ -158,6 +167,7 @@ public class MenuManager : MonoBehaviour
 
         mainCamera.GetComponent<LineRenderer>().enabled = true ;     //Active all necessery object to start the game
 
+        gameSceneSound.Play();
         baitCount_txt.SetText("3");
         hook.SetActive(true);
         hand.SetActive(false);
@@ -174,9 +184,18 @@ public class MenuManager : MonoBehaviour
 
     public void ReturnMainMenu()
     {
+        if (gameSceneSound.isPlaying)
+        {
+            gameSceneSound.Stop();
+        }
+        
         gameOverPanel.SetActive(false);
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         moveCameraToMenu = true;       
     }     
 
+    public void openSettings()
+    {
+        settingsPanel.SetActive(true);
+    }
 }
