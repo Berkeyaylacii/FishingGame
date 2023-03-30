@@ -22,6 +22,8 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
+
+    [SerializeField] private AudioSource fishCatchSound;
     public bool ifHooked = false;
     public float reset = 0;
     void Start()
@@ -42,7 +44,8 @@ public class HookCollisions : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Fish" && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýða çarpýyor
-        {   
+        {
+            fishCatchSound.Play();
             ifHooked = true;
 
             //colliderofHook.enabled = false;                     //remove the collider of hook to catch fish only once
