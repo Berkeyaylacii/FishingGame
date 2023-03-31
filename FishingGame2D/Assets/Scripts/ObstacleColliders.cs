@@ -6,6 +6,7 @@ using TMPro;
 
 public class ObstacleColliders : MonoBehaviour
 {
+    [SerializeField] private AudioSource wormDropSound;
     public TextMeshProUGUI baitCount_txt;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class ObstacleColliders : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("HookedFish") != null)
             {
+                wormDropSound.Play();                  //worm drop sound
                 Destroy(collision.gameObject);
 
                 float baitct = float.Parse(baitCount_txt.text);

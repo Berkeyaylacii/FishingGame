@@ -24,6 +24,7 @@ public class HookCollisions : MonoBehaviour
 
 
     [SerializeField] private AudioSource fishCatchSound;
+    [SerializeField] private AudioSource wormDropSound;
     public bool ifHooked = false;
     public float reset = 0;
     void Start()
@@ -74,7 +75,8 @@ public class HookCollisions : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "Obstacle" && ifHooked == false && worm.activeSelf == true)   // Olta yemliyken objeye çarpýyor
-        {   
+        {
+            wormDropSound.Play();             //worm hits obstacle
             colliderofHook.enabled = false;
             worm.gameObject.SetActive(false);
             
