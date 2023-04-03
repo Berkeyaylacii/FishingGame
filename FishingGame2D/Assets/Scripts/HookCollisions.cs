@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using System.Text.RegularExpressions;
 
 public class HookCollisions : MonoBehaviour
 {
@@ -22,9 +23,9 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
+    [SerializeField] public AudioSource fishCatchSound;
+    [SerializeField] public AudioSource wormDropSound;
 
-    [SerializeField] private AudioSource fishCatchSound;
-    [SerializeField] private AudioSource wormDropSound;
     public bool ifHooked = false;
     public float reset = 0;
     void Start()

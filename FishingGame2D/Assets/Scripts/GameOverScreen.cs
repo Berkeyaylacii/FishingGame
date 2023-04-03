@@ -15,33 +15,30 @@ public class GameOverScreen : MonoBehaviour
 
     public Camera mainCamera;
 
+    //public bool isCapacityFull;
     void Start()
     {
-
+        //isCapacityFull = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(baitCount_txt.text == "0")
-        {
+        //Debug.Log(isCapacityFull);
+        if(baitCount_txt.text == "0" )
+        {   
+            FishManager.SetActive(false); 
+
             if(menuManager.isInMainMenu == false)
-            {   
-                GameOver();
-                
-            }else if(menuManager.isInMainMenu == true)
+            {
+                GameOverPanel.SetActive(true);
+
+            }
+            else if(menuManager.isInMainMenu == true)
             {
                 GameOverPanel.SetActive(false);
-            }
-                 
-
-            FishManager.SetActive(false);          
+            }                            
         }
-    }
-
-    public void GameOver()
-    {
-        GameOverPanel.SetActive(true);
     }
 
     public void RestartGame()
@@ -49,7 +46,6 @@ public class GameOverScreen : MonoBehaviour
         baitCount_txt.text = "1";
 
         GameOverPanel.SetActive(false);
-        FishManager.SetActive(true);
-        Debug.Log("Reklam izlendi ve 1 yem verildi");
+        FishManager.SetActive(true);    
     }
 }
