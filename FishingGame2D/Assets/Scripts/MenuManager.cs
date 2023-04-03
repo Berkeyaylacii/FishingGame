@@ -9,19 +9,21 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public GameOverScreen gameOverScreen;
-
     public FishMovement FishMovement;
     public HookCollisions HookCollisions;
+    public CollectScreen CollectScreen;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
-    GameObject upgrade1;       //Main Menu button
     GameObject fishingBagText; //Main Menu button
     GameObject baitCountText;
     GameObject bubbles;
 
     public GameObject gameOverPanel;
+    public GameObject collectPanel;
     public GameObject settingsPanel;
+    public GameObject Upgrade1Panel;
+    public GameObject Upgrade2Panel;
 
     public GameObject fishSpawner;
 
@@ -45,13 +47,15 @@ public class MenuManager : MonoBehaviour
     public bool moveCamera = false;
     public bool moveCameraToMenu = false;
     public bool isInMainMenu = true;
+    public bool ifCollect = false;
     //
     Vector3 startPos;
     Vector3 targetPos;
     float time;
 
     void Start()
-    {   
+    {
+        //PlayerPrefs.DeleteAll();
         mainCamera = Camera.main;
 
         startPos = mainCamera.transform.position;
@@ -67,6 +71,7 @@ public class MenuManager : MonoBehaviour
         score.SetActive(false);
         baitCountText.SetActive(false);
         gameOverPanel.SetActive(false);
+        collectPanel.SetActive(false);
         settingsPanel.SetActive(false);
         fishSpawner.SetActive(false);
         bubbles.SetActive(false);
@@ -102,6 +107,7 @@ public class MenuManager : MonoBehaviour
         if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working) Game Scene -> Main Menu
         {   
             bubbles.SetActive(false);
+            CollectScreen.isCapacityFull = false; // restart the capacity
 
             gameScoreGroup.SetActive(false); 
             time += Time.deltaTime * 0.6f;
@@ -119,8 +125,17 @@ public class MenuManager : MonoBehaviour
                 baitCountText.SetActive(false);
                 fishSpawner.SetActive(false);
 
-                HookCollisions.increaseTotalScore();
+                if(ifCollect == true)
+                {
+                    HookCollisions.increaseTotalScore();
+                    Debug.Log("score added");
+                    ifCollect = false;
+                }
+                
                 totalScoreGroup.SetActive(true);
+
+                Upgrade1Panel.SetActive(true);  //Activate upgrade1
+                Upgrade2Panel.SetActive(true);  //Activate upgrade2
 
                 HookCollisions.resetPoint();    //Reset game score when returning to main menu           
             }
@@ -128,12 +143,14 @@ public class MenuManager : MonoBehaviour
 
         if (isInMainMenu == true)
         {
+            collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
             //mainMenuSound.Play();
             bubbles.SetActive(false);
             //gameSceneSound.Play();               //Plays main menu sound
             gameScoreGroup.SetActive(false);
             totalScoreGroup.SetActive(true);
-            if ( (FishMovement.rightSpawns != null) && (FishMovement.leftSpawns != null) )
+
+            if ( (FishMovement.rightSpawns != null) && (FishMovement.leftSpawns != null) )   //Deletes gameScene object
              {
                 foreach (GameObject obj in FishMovement.rightSpawns)
                 {
@@ -173,29 +190,52 @@ public class MenuManager : MonoBehaviour
         hand.SetActive(false);
         score.SetActive(true);
         baitCountText.SetActive(true);
+        Upgrade1Panel.SetActive(false);
+        Upgrade2Panel.SetActive(false);
 
         fishSpawner.SetActive(true);
     }
 
-    public void UpgradeRoad1()
-    {
-        upgrade1.SetActive(false);
-    }
 
-    public void ReturnMainMenu()
+    public void ReturnMainMenu()         //returns to main menu with when clicked, also Score increases! 
     {
         if (gameSceneSound.isPlaying)
         {
             gameSceneSound.Stop();
         }
-        
+
+        collectPanel.SetActive(false);  
         gameOverPanel.SetActive(false);
+        
+
         mainCamera.GetComponent<LineRenderer>().enabled = false;
+        ifCollect = true;
         moveCameraToMenu = true;       
     }     
+
+    public void ReturnMainMenuWithout()
+    {
+        if (gameSceneSound.isPlaying)
+        {
+            gameSceneSound.Stop();
+        }
+
+        collectPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+
+
+        mainCamera.GetComponent<LineRenderer>().enabled = false;
+        ifCollect = false;
+        moveCameraToMenu = true;
+    }
 
     public void openSettings()
     {
         settingsPanel.SetActive(true);
+    }
+
+    public void closeSettingsPanel()
+    {
+        settingsPanel.SetActive(false);
     }
 }
