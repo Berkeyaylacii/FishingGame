@@ -5,7 +5,7 @@ using GoogleMobileAds.Api;
 using System;
 using UnityEngine.UI;
 
-public class AdManager : MonoBehaviour
+public class AdManagerCollect : MonoBehaviour
 {
     public GameOverScreen gameOverScreen;
     public GameObject FishManager;
@@ -20,8 +20,8 @@ public class AdManager : MonoBehaviour
 
     public Button addWatchButton;
     void Start()
-    {        
-        string adUnitId ;
+    {
+        string adUnitId;
 #if UNITY_ANDROID
         adUnitId = "ca-app-pub-3982814711633983/1640931253";
 
@@ -31,7 +31,7 @@ public class AdManager : MonoBehaviour
 #else 
         adUnitId = "unexpected_platform";
 #endif  
-        this.odulluReklam = new RewardedAd(adUnitId);    
+        this.odulluReklam = new RewardedAd(adUnitId);
         this.odulluReklam.OnUserEarnedReward += GiveReward;
 
         this.odulluReklam2x = new RewardedAd(adUnitId);
@@ -44,40 +44,40 @@ public class AdManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameOverScreen.ifAddWatched == true)
+        if (gameOverScreen.ifAddWatched == true)
         {
             addWatchButton.interactable = false;
         }
     }
 
     public void WatchAdToPlayAgain()
-    {      
-            AdRequest request = new AdRequest.Builder().Build();
-            this.odulluReklam.LoadAd(request); 
+    {
+        AdRequest request = new AdRequest.Builder().Build();
+        this.odulluReklam.LoadAd(request);
 
-            if (this.odulluReklam.IsLoaded())
-            {
-                this.odulluReklam.Show();
-            }
-   
+        if (this.odulluReklam.IsLoaded())
+        {
+            this.odulluReklam.Show();
+        }
+
     }
 
     public void WatchAddToGet2xPoint()
     {
         AdRequest request2 = new AdRequest.Builder().Build();
-        this.odulluReklam2x.LoadAd(request2);
+        this.odulluReklam.LoadAd(request2);
 
-        if (this.odulluReklam2x.IsLoaded())
+        if (this.odulluReklam.IsLoaded())
         {
-            this.odulluReklam2x.Show();
+            this.odulluReklam.Show();
         }
     }
 
     void GiveReward(object sender, Reward e)
     {
-        gameOverScreen.RestartGame();
-        FishManager.SetActive(true);
-       
+        //gameOverScreen.RestartGame();
+        //FishManager.SetActive(true);
+        MenuManager.ReturnMainMenu2xCollect();
     }
 
     void Give2xPoint(object sender, Reward e)
@@ -85,6 +85,7 @@ public class AdManager : MonoBehaviour
         Debug.Log("buraya girdi");
         MenuManager.ReturnMainMenu2xCollect();
     }
+
 
     void RequestBanner()
     {

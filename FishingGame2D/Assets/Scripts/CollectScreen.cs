@@ -31,12 +31,12 @@ public class CollectScreen : MonoBehaviour
             if (menuManager.isInMainMenu == false)
             {
                 CollectPanel.SetActive(true);
-                Debug.Log("Panel açýldý");
+                
             }
             else if (menuManager.isInMainMenu == true)   //burasý çalýþmadý, o yüzden menu manager'da kapatýldý.
             {
                 CollectPanel.SetActive(false);   
-                Debug.Log("Panel Kapatýldý");
+                
             }         
         }
     }

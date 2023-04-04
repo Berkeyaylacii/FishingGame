@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
     public FishMovement FishMovement;
     public HookCollisions HookCollisions;
     public CollectScreen CollectScreen;
+    public AdManager AdManager;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
@@ -48,6 +49,7 @@ public class MenuManager : MonoBehaviour
     public bool moveCameraToMenu = false;
     public bool isInMainMenu = true;
     public bool ifCollect = false;
+    public bool ifCollect2x = false;
     //
     Vector3 startPos;
     Vector3 targetPos;
@@ -79,8 +81,9 @@ public class MenuManager : MonoBehaviour
         gameScoreGroup.SetActive(false);
         totalScoreGroup.SetActive(true);
 
+        gameOverScreen.ifAddWatched = false;
 
-       baitCount_txt.SetText("3");
+        baitCount_txt.SetText("3");
          
         tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
@@ -126,10 +129,22 @@ public class MenuManager : MonoBehaviour
                 fishSpawner.SetActive(false);
 
                 if(ifCollect == true)
-                {
-                    HookCollisions.increaseTotalScore();
-                    Debug.Log("score added");
+                {   
+                    if(ifCollect2x == true)
+                    {
+                        Debug.Log("puan 2x verildi.");
+                        HookCollisions.increaseTotalScore2x();
+                        
+                    }
+                    else if(ifCollect2x == false)
+                    {
+                        Debug.Log("puan normal verildi.");
+                        HookCollisions.increaseTotalScore();
+                    }
+                    
+                    
                     ifCollect = false;
+                    ifCollect2x = false;
                 }
                 
                 totalScoreGroup.SetActive(true);
@@ -142,7 +157,10 @@ public class MenuManager : MonoBehaviour
         }
 
         if (isInMainMenu == true)
-        {
+        { 
+            gameOverScreen.ifAddWatched = false;  //reset the add reward each game
+            AdManager.addWatchButton.interactable = true;   //to reset the add reward each game
+
             collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
             //mainMenuSound.Play();
             bubbles.SetActive(false);
@@ -226,6 +244,23 @@ public class MenuManager : MonoBehaviour
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         ifCollect = false;
+        ifCollect2x = false;
+        moveCameraToMenu = true;
+    }
+
+    public void ReturnMainMenu2xCollect()
+    {
+        if (gameSceneSound.isPlaying)
+        {
+            gameSceneSound.Stop();
+        }
+
+        collectPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+
+        mainCamera.GetComponent<LineRenderer>().enabled = false;
+        ifCollect = true;
+        ifCollect2x = true;
         moveCameraToMenu = true;
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Newtonsoft.Json;
 
 public class UpgradeController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UpgradeController : MonoBehaviour
 
     public TextMeshProUGUI totalScoree;
     public TextMeshProUGUI gameScore;
-
+    public TextMeshProUGUI increaseCapacityCostText;
 
     private float boatCapacity;
     private float increaseCapacityCost = 15;
@@ -32,6 +33,7 @@ public class UpgradeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //increaseCapacityCost = float.Parse(increaseCapacityCostText.text);
         if(float.Parse(gameScore.text) == boatCapacity)
         {
             collectScreen.isCapacityFull = true;
