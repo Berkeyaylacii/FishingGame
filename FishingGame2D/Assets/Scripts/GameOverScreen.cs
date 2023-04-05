@@ -16,7 +16,7 @@ public class GameOverScreen : MonoBehaviour
     public Camera mainCamera;
 
     //public bool isCapacityFull;
-    public bool ifAddWatched = false;
+    
     void Start()
     {
         //isCapacityFull = false;
@@ -44,15 +44,11 @@ public class GameOverScreen : MonoBehaviour
 
     public void RestartGame()  //If ad watched, give 1 more bait to play
     {
-        if (ifAddWatched == false)
-        {
             Debug.Log("reklam izlendi 1 kere ve ödül verildi.");
             baitCount_txt.text = "1";
 
             GameOverPanel.SetActive(false);
-            FishManager.SetActive(true);
-            ifAddWatched = true;
-        }
+            FishManager.SetActive(true);     
     }
 
 }

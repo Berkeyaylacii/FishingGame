@@ -44,10 +44,7 @@ public class AdManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameOverScreen.ifAddWatched == true)
-        {
-            addWatchButton.interactable = false;
-        }
+
     }
 
     public void WatchAdToPlayAgain()
@@ -89,7 +86,7 @@ public class AdManager : MonoBehaviour
     void RequestBanner()
     {
 #if UNITY_ANDROID
-        string bannerAddID = "ca-app-pub-3940256099942544/6300978111"; //test-id
+        string bannerAddID = "ca-app-pub-3982814711633983/7152884441"; //test-id
 #elif UNITY_IPHONE
         string bannerAddID = "ca-app-pub-3940256099942544/1033173712";
 #else

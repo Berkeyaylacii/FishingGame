@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using TMPro;
 
@@ -13,7 +12,7 @@ public class ObstacleColliders : MonoBehaviour
     {   
         if(GameObject.Find("Canvas/BaitCount") != null)
         {
-            baitCount_txt = GameObject.Find("Canvas/BaitCount/FishCapacity").GetComponent<TextMeshProUGUI>();
+            baitCount_txt = GameObject.Find("Canvas/BaitCount/WormIcon/x/FishCapacity").GetComponent<TextMeshProUGUI>();
         }
             
     }

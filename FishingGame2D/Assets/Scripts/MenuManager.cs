@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     public HookCollisions HookCollisions;
     public CollectScreen CollectScreen;
     public AdManager AdManager;
+    public UpgradeController UpgradeController;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
@@ -25,14 +26,17 @@ public class MenuManager : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject Upgrade1Panel;
     public GameObject Upgrade2Panel;
+    public GameObject howToPlayPanel;
 
     public GameObject fishSpawner;
 
     public GameObject gameScoreGroup;
     public GameObject totalScoreGroup;
+    
 
     [SerializeField] private TextMeshProUGUI tap_txt;
     [SerializeField] private TextMeshProUGUI baitCount_txt;
+    [SerializeField] private TextMeshProUGUI boatCapacity_txt;
 
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
@@ -54,7 +58,7 @@ public class MenuManager : MonoBehaviour
     Vector3 startPos;
     Vector3 targetPos;
     float time;
-
+    float boatCap;
     void Start()
     {
         //PlayerPrefs.DeleteAll();
@@ -77,13 +81,13 @@ public class MenuManager : MonoBehaviour
         settingsPanel.SetActive(false);
         fishSpawner.SetActive(false);
         bubbles.SetActive(false);
+        howToPlayPanel.SetActive(false);
 
         gameScoreGroup.SetActive(false);
         totalScoreGroup.SetActive(true);
-
-        gameOverScreen.ifAddWatched = false;
-
+        
         baitCount_txt.SetText("3");
+        //boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
          
         tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
@@ -91,6 +95,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
+        boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
             //Debug.Log(moveCamera);
@@ -150,7 +155,7 @@ public class MenuManager : MonoBehaviour
                 totalScoreGroup.SetActive(true);
 
                 Upgrade1Panel.SetActive(true);  //Activate upgrade1
-                Upgrade2Panel.SetActive(true);  //Activate upgrade2
+                //Upgrade2Panel.SetActive(true);  //Activate upgrade2
 
                 HookCollisions.resetPoint();    //Reset game score when returning to main menu           
             }
@@ -158,7 +163,6 @@ public class MenuManager : MonoBehaviour
 
         if (isInMainMenu == true)
         { 
-            gameOverScreen.ifAddWatched = false;  //reset the add reward each game
             AdManager.addWatchButton.interactable = true;   //to reset the add reward each game
 
             collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
@@ -209,7 +213,7 @@ public class MenuManager : MonoBehaviour
         score.SetActive(true);
         baitCountText.SetActive(true);
         Upgrade1Panel.SetActive(false);
-        Upgrade2Panel.SetActive(false);
+        //Upgrade2Panel.SetActive(false);
 
         fishSpawner.SetActive(true);
     }
@@ -265,12 +269,30 @@ public class MenuManager : MonoBehaviour
     }
 
     public void openSettings()
-    {
+    {   
         settingsPanel.SetActive(true);
+        Time.timeScale = 0;
+        fishSpawner.SetActive(false);
     }
 
     public void closeSettingsPanel()
     {
         settingsPanel.SetActive(false);
+        Time.timeScale = 1;
+        fishSpawner.SetActive(true);
+    }
+
+    public void openHowToPlay()
+    {
+        howToPlayPanel.SetActive(true);
+        Time.timeScale = 0;
+        fishSpawner.SetActive(false);
+    }
+
+    public void closeHowTopPlayPanel()
+    {
+        howToPlayPanel.SetActive(false);
+        Time.timeScale = 1;
+        fishSpawner.SetActive(true);
     }
 }

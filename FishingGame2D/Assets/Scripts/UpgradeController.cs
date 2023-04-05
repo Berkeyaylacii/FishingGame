@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Newtonsoft.Json;
+using UnityEngine.UIElements;
 
 public class UpgradeController : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class UpgradeController : MonoBehaviour
     public TextMeshProUGUI gameScore;
     public TextMeshProUGUI increaseCapacityCostText;
 
-    private float boatCapacity;
+    public float boatCapacity;
     private float increaseCapacityCost = 15;
+
     void Start()
     {   
         
@@ -26,14 +28,13 @@ public class UpgradeController : MonoBehaviour
         {
             boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");   
         }
-                 
+
         Debug.Log("Boat capacity is: " + boatCapacity);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        //increaseCapacityCost = float.Parse(increaseCapacityCostText.text);
+    {   
         if(float.Parse(gameScore.text) == boatCapacity)
         {
             collectScreen.isCapacityFull = true;
@@ -42,14 +43,19 @@ public class UpgradeController : MonoBehaviour
 
     public void increaseBoatCapacity()
     {   
-        float total = float.Parse(totalScoree.text);        
-        total = total - increaseCapacityCost;
-;       totalScoree.text = total.ToString();
-        boatCapacity += 3;
+        float total = float.Parse(totalScoree.text);  
+        if(total >= 15)
+        {
+            total = total - increaseCapacityCost;
+;           totalScoree.text = total.ToString();
+            boatCapacity += 3;
+        }
 
-        Debug.Log("Total Score: "+ totalScoree.text + ". Kapasite arttýrýldý. Kapasite: " + boatCapacity);
+
+        //Debug.Log("Total Score: "+ totalScoree.text + ". Kapasite arttýrýldý. Kapasite: " + boatCapacity);
      
         PlayerPrefs.SetFloat("TotalScore", total);
         PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
     }
+
 }
