@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 
 public class HookCollisions : MonoBehaviour
 {
+    public ObstacleColliders ObstacleColliders;
+
     public GameObject fish;
 
     public Rigidbody2D rbofFish;
@@ -28,6 +30,7 @@ public class HookCollisions : MonoBehaviour
 
     public bool ifHooked = false;
     public float reset = 0;
+    public float fishCount = 0;
     void Start()
     {
         total_score_txt.text = PlayerPrefs.GetFloat("TotalScore").ToString();
@@ -40,17 +43,21 @@ public class HookCollisions : MonoBehaviour
         if (this.transform.position.y >= 3.9f)     //if fish is moved to boat position, to remove the fish from the hook
         {
             takeFishToBoat();
-        }          
+        }
+ 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Fish" && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýða çarpýyor
+        if (collision.gameObject.tag == "Fish" && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýk yakalanýyor
         {
             fishCatchSound.Play();
             ifHooked = true;
+            fishCount++;
+            Debug.Log("toplam balýk: " + fishCount);
 
-            //colliderofHook.enabled = false;                     //remove the collider of hook to catch fish only once
+            colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
+            collision.gameObject.GetComponent<Collider2D>().enabled = false;
             worm.gameObject.SetActive(false);                    //disappear the worm
 
             collision.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched
@@ -106,7 +113,6 @@ public class HookCollisions : MonoBehaviour
                     }
             }
         }*/
-
     }
 
     private void takeFishToBoat()
@@ -119,6 +125,7 @@ public class HookCollisions : MonoBehaviour
         colliderofHook.enabled = true;
         worm.gameObject.SetActive(true); 
         ifHooked = false;
+        fishCount = 0;             //reset the fish count at hook
     }
 
     private void increasePoint()

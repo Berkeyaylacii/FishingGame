@@ -28,6 +28,7 @@ TagManager:
   - HookedFish
   - Bubbles
   - TotalScore
+  - FishManager
   layers:
   - Default
   - TransparentFX
