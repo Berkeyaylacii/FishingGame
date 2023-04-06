@@ -142,4 +142,14 @@ public class HookCollisions : MonoBehaviour
         total_score_txt.text = totalScore.ToString();
         PlayerPrefs.SetFloat("TotalScore", totalScore);
     }
+
+    public void increaseTotalScore2x()
+    {
+        float totalScore = float.Parse(total_score_txt.text);
+        float score = float.Parse(score_txt.text);
+        totalScore += 2*score;
+
+        total_score_txt.text = totalScore.ToString();
+        PlayerPrefs.SetFloat("TotalScore", totalScore);
+    }
 }

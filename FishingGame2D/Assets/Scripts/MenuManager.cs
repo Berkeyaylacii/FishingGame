@@ -12,6 +12,8 @@ public class MenuManager : MonoBehaviour
     public FishMovement FishMovement;
     public HookCollisions HookCollisions;
     public CollectScreen CollectScreen;
+    public AdManager AdManager;
+    public UpgradeController UpgradeController;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
@@ -24,14 +26,17 @@ public class MenuManager : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject Upgrade1Panel;
     public GameObject Upgrade2Panel;
+    public GameObject howToPlayPanel;
 
     public GameObject fishSpawner;
 
     public GameObject gameScoreGroup;
     public GameObject totalScoreGroup;
+    
 
     [SerializeField] private TextMeshProUGUI tap_txt;
     [SerializeField] private TextMeshProUGUI baitCount_txt;
+    [SerializeField] private TextMeshProUGUI boatCapacity_txt;
 
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
@@ -48,11 +53,12 @@ public class MenuManager : MonoBehaviour
     public bool moveCameraToMenu = false;
     public bool isInMainMenu = true;
     public bool ifCollect = false;
+    public bool ifCollect2x = false;
     //
     Vector3 startPos;
     Vector3 targetPos;
     float time;
-
+    float boatCap;
     void Start()
     {
         //PlayerPrefs.DeleteAll();
@@ -75,12 +81,13 @@ public class MenuManager : MonoBehaviour
         settingsPanel.SetActive(false);
         fishSpawner.SetActive(false);
         bubbles.SetActive(false);
+        howToPlayPanel.SetActive(false);
 
         gameScoreGroup.SetActive(false);
         totalScoreGroup.SetActive(true);
-
-
-       baitCount_txt.SetText("3");
+        
+        baitCount_txt.SetText("3");
+        //boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
          
         tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
@@ -88,6 +95,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
+        boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
             //Debug.Log(moveCamera);
@@ -126,23 +134,37 @@ public class MenuManager : MonoBehaviour
                 fishSpawner.SetActive(false);
 
                 if(ifCollect == true)
-                {
-                    HookCollisions.increaseTotalScore();
-                    Debug.Log("score added");
+                {   
+                    if(ifCollect2x == true)
+                    {
+                        Debug.Log("puan 2x verildi.");
+                        HookCollisions.increaseTotalScore2x();
+                        
+                    }
+                    else if(ifCollect2x == false)
+                    {
+                        Debug.Log("puan normal verildi.");
+                        HookCollisions.increaseTotalScore();
+                    }
+                    
+                    
                     ifCollect = false;
+                    ifCollect2x = false;
                 }
                 
                 totalScoreGroup.SetActive(true);
 
                 Upgrade1Panel.SetActive(true);  //Activate upgrade1
-                Upgrade2Panel.SetActive(true);  //Activate upgrade2
+                //Upgrade2Panel.SetActive(true);  //Activate upgrade2
 
                 HookCollisions.resetPoint();    //Reset game score when returning to main menu           
             }
         }
 
         if (isInMainMenu == true)
-        {
+        { 
+            AdManager.addWatchButton.interactable = true;   //to reset the add reward each game
+
             collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
             //mainMenuSound.Play();
             bubbles.SetActive(false);
@@ -191,7 +213,7 @@ public class MenuManager : MonoBehaviour
         score.SetActive(true);
         baitCountText.SetActive(true);
         Upgrade1Panel.SetActive(false);
-        Upgrade2Panel.SetActive(false);
+        //Upgrade2Panel.SetActive(false);
 
         fishSpawner.SetActive(true);
     }
@@ -226,16 +248,51 @@ public class MenuManager : MonoBehaviour
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         ifCollect = false;
+        ifCollect2x = false;
+        moveCameraToMenu = true;
+    }
+
+    public void ReturnMainMenu2xCollect()
+    {
+        if (gameSceneSound.isPlaying)
+        {
+            gameSceneSound.Stop();
+        }
+
+        collectPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+
+        mainCamera.GetComponent<LineRenderer>().enabled = false;
+        ifCollect = true;
+        ifCollect2x = true;
         moveCameraToMenu = true;
     }
 
     public void openSettings()
-    {
+    {   
         settingsPanel.SetActive(true);
+        Time.timeScale = 0;
+        fishSpawner.SetActive(false);
     }
 
     public void closeSettingsPanel()
     {
         settingsPanel.SetActive(false);
+        Time.timeScale = 1;
+        fishSpawner.SetActive(true);
+    }
+
+    public void openHowToPlay()
+    {
+        howToPlayPanel.SetActive(true);
+        Time.timeScale = 0;
+        fishSpawner.SetActive(false);
+    }
+
+    public void closeHowTopPlayPanel()
+    {
+        howToPlayPanel.SetActive(false);
+        Time.timeScale = 1;
+        fishSpawner.SetActive(true);
     }
 }
