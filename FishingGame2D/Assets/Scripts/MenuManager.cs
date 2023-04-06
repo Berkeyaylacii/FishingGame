@@ -245,7 +245,6 @@ public class MenuManager : MonoBehaviour
         collectPanel.SetActive(false);
         gameOverPanel.SetActive(false);
 
-
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         ifCollect = false;
         ifCollect2x = false;

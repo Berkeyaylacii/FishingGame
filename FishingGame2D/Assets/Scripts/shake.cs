@@ -13,12 +13,10 @@ public class shake : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {       
         transform.DOShakeRotation(5, Vector3.forward * 45, 2, 25, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
         {
             transform.rotation = Quaternion.identity;
         });
     }
-
-
 }

@@ -6,8 +6,10 @@ public class GameOverScreen : MonoBehaviour
 {
     public GameObject GameOverPanel;
     public GameObject FishManager;
+    public GameObject hook;
 
     public MenuManager menuManager;
+    public ObstacleColliders ObstacleColliders;
 
     [SerializeField] public TextMeshProUGUI baitCount_txt;
 
@@ -28,8 +30,8 @@ public class GameOverScreen : MonoBehaviour
         //Debug.Log(isCapacityFull);
         if(baitCount_txt.text == "0" )
         {   
-            FishManager.SetActive(false); 
-
+            FishManager.SetActive(false);
+            hook.SetActive(false);
             if(menuManager.isInMainMenu == false)
             {
                 GameOverPanel.SetActive(true);
@@ -48,7 +50,8 @@ public class GameOverScreen : MonoBehaviour
             baitCount_txt.text = "1";
 
             GameOverPanel.SetActive(false);
-            FishManager.SetActive(true);     
+            FishManager.SetActive(true);
+            hook.SetActive(true);
     }
 
 }

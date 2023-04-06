@@ -7,6 +7,7 @@ public class CollectScreen : MonoBehaviour
 {
     public GameObject CollectPanel;
     public GameObject FishManager;
+    public GameObject Hook;
 
     public MenuManager menuManager;
 
@@ -27,7 +28,7 @@ public class CollectScreen : MonoBehaviour
         if (isCapacityFull == true)
         {   
             FishManager.SetActive(false);
-
+            Hook.SetActive(false);
             if (menuManager.isInMainMenu == false)
             {
                 CollectPanel.SetActive(true);
