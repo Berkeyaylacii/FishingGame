@@ -16,8 +16,12 @@ public class ObstacleColliders : MonoBehaviour
     public bool ifHookedFishesFell = false;
     void Start()
     {   
-        if(GameObject.FindGameObjectWithTag("Hook").GetComponent<HookCollisions>() != null)
+        if(HookCollisions != null)
+        {
             HookCollisions = GameObject.FindGameObjectWithTag("Hook").GetComponent<HookCollisions>();
+        }
+        
+
         if(GameObject.Find("Canvas/BaitCount") != null)
         {
             baitCount_txt = GameObject.Find("Canvas/BaitCount/WormIcon/x/FishCapacity").GetComponent<TextMeshProUGUI>();
@@ -43,11 +47,12 @@ public class ObstacleColliders : MonoBehaviour
 
                 if(ifHookedFishesFell == true)
                 {   
-                    if(HookCollisions.fishCount != null)
+                    if(HookCollisions != null)
                     {
                         HookCollisions.fishCount -= 1 ;
+                        Debug.Log("Toplam balýk: "+HookCollisions.fishCount);
                     }       
-                    Debug.Log("Toplam balýk: "+HookCollisions.fishCount);
+                    
                     ifHookedFishesFell = false;
                 }
 
