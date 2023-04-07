@@ -18,8 +18,7 @@ public class UpgradeController : MonoBehaviour
     private float increaseCapacityCost = 15;
 
     void Start()
-    {   
-        
+    {       
         if(PlayerPrefs.GetFloat("BoatCapacity") == 0)
         {   
            boatCapacity = 5;           
@@ -51,9 +50,7 @@ public class UpgradeController : MonoBehaviour
             boatCapacity += 3;
         }
 
-
-        //Debug.Log("Total Score: "+ totalScoree.text + ". Kapasite arttýrýldý. Kapasite: " + boatCapacity);
-     
+        //Debug.Log("Total Score: "+ totalScoree.text + ". Kapasite arttýrýldý. Kapasite: " + boatCapacity);    
         PlayerPrefs.SetFloat("TotalScore", total);
         PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
     }

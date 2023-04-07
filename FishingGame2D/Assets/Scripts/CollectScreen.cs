@@ -32,7 +32,7 @@ public class CollectScreen : MonoBehaviour
             if (menuManager.isInMainMenu == false)
             {
                 CollectPanel.SetActive(true);
-                
+                menuManager.isInGame = false;             
             }
             else if (menuManager.isInMainMenu == true)   //burasý çalýþmadý, o yüzden menu manager'da kapatýldý.
             {

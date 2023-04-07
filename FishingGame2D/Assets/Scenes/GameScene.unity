@@ -1570,7 +1570,7 @@ GameObject:
   - component: {fileID: 480829174}
   - component: {fileID: 480829175}
   m_Layer: 0
-  m_Name: Spawner 2
+  m_Name: Destroyer2
   m_TagString: Destroyer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4421,7 +4421,7 @@ GameObject:
   - component: {fileID: 1090007862}
   - component: {fileID: 1090007863}
   m_Layer: 0
-  m_Name: Spawner 1
+  m_Name: Destroyer1
   m_TagString: Destroyer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7778,6 +7778,7 @@ MonoBehaviour:
   isInMainMenu: 1
   ifCollect: 0
   ifCollect2x: 0
+  isInGame: 0
 --- !u!114 &2070146818
 MonoBehaviour:
   m_ObjectHideFlags: 0
