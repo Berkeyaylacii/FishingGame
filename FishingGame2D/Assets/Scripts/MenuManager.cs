@@ -17,7 +17,6 @@ public class MenuManager : MonoBehaviour
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
-    GameObject fishingBagText; //Main Menu button
     GameObject baitCountText;
     GameObject bubbles;
 
@@ -54,6 +53,7 @@ public class MenuManager : MonoBehaviour
     public bool isInMainMenu = true;
     public bool ifCollect = false;
     public bool ifCollect2x = false;
+    public bool isInGame = false;
     //
     Vector3 startPos;
     Vector3 targetPos;
@@ -105,6 +105,7 @@ public class MenuManager : MonoBehaviour
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
             if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
             {
+                isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
                 moveCamera = false;
                 time = 0;                    // Time set to 0 for Lerp to work correct way
@@ -155,7 +156,7 @@ public class MenuManager : MonoBehaviour
                 totalScoreGroup.SetActive(true);
 
                 Upgrade1Panel.SetActive(true);  //Activate upgrade1
-                //Upgrade2Panel.SetActive(true);  //Activate upgrade2
+                Upgrade2Panel.SetActive(true);  //Activate upgrade2
 
                 HookCollisions.resetPoint();    //Reset game score when returning to main menu           
             }
@@ -191,7 +192,6 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
-    
     }
 
     public void LoadGamee()
@@ -213,7 +213,7 @@ public class MenuManager : MonoBehaviour
         score.SetActive(true);
         baitCountText.SetActive(true);
         Upgrade1Panel.SetActive(false);
-        //Upgrade2Panel.SetActive(false);
+        Upgrade2Panel.SetActive(false);
 
         fishSpawner.SetActive(true);
     }

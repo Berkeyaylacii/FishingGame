@@ -7,7 +7,6 @@ public class GameOverScreen : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject FishManager;
     public GameObject hook;
-
     public MenuManager menuManager;
     public ObstacleColliders ObstacleColliders;
 
@@ -17,7 +16,6 @@ public class GameOverScreen : MonoBehaviour
 
     public Camera mainCamera;
 
-    //public bool isCapacityFull;
     
     void Start()
     {
@@ -35,8 +33,9 @@ public class GameOverScreen : MonoBehaviour
             if(menuManager.isInMainMenu == false)
             {
                 GameOverPanel.SetActive(true);
+                menuManager.isInGame = false;
 
-            }
+}
             else if(menuManager.isInMainMenu == true)
             {
                 GameOverPanel.SetActive(false);
@@ -52,6 +51,8 @@ public class GameOverScreen : MonoBehaviour
             GameOverPanel.SetActive(false);
             FishManager.SetActive(true);
             hook.SetActive(true);
-    }
+            menuManager.isInGame = true;
+
+}
 
 }

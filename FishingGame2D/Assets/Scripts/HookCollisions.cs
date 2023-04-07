@@ -48,13 +48,14 @@ public class HookCollisions : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+    {   
+        
         if (collision.gameObject.tag == "Fish" && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýk yakalanýyor
         {
             fishCatchSound.Play();
             ifHooked = true;
             fishCount++;
-            Debug.Log("toplam balýk: " + fishCount);
+            //Debug.Log("toplam balýk: " + fishCount);
 
             colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
@@ -92,7 +93,7 @@ public class HookCollisions : MonoBehaviour
             if (baitct > 0 )
             {
                 baitct = baitct - 1;
-                Debug.Log("Objeye çarptý yem düþtü -1");
+                Debug.Log("Bait -1");
                 baitCount_txt.text = baitct.ToString();
             }
         }
