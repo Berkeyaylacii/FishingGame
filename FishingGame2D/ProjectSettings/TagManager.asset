@@ -29,6 +29,7 @@ TagManager:
   - Bubbles
   - TotalScore
   - FishManager
+  - Test
   layers:
   - Default
   - TransparentFX

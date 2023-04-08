@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using DG.Tweening;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 
 public class HookCollisions : MonoBehaviour
 {
@@ -59,16 +59,18 @@ public class HookCollisions : MonoBehaviour
 
             colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
+            collision.gameObject.GetComponent<HingeJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+            collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+            collision.gameObject.GetComponent<Rigidbody2D>().mass = 20f;
+            collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+
             worm.gameObject.SetActive(false);                    //disappear the worm
 
             collision.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched
 
             if (collision.gameObject != null)
             {
-                collision.transform.DOShakeRotation(5, Vector3.forward * 10, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate        //fish shake effect
-                {
-                    collision.transform.rotation = Quaternion.identity;
-                });
+
             }
 
             collision.transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);         //fish become parent of hook
