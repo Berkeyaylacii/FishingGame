@@ -14,27 +14,44 @@ public class UpgradeController : MonoBehaviour
     public TextMeshProUGUI gameScore;
     public TextMeshProUGUI increaseCapacityCostText;
 
-    public float boatCapacity;
+    public float boatCapacity = 5;
     private float increaseCapacityCost = 15;
+    public bool multipleCatchisOn = false;
 
     void Start()
-    {       
-        if(PlayerPrefs.GetFloat("BoatCapacity") == 0)
-        {   
-           boatCapacity = 5;           
+    {
+        //PlayerPrefs.DeleteAll();
+        if (PlayerPrefs.GetFloat("BoatCapacity") == 0)
+        {
+            boatCapacity = 5;
+            PlayerPrefs.SetFloat("BoatCapacity", boatCapacity);     
         }
         else
         {
             boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");   
         }
 
-        Debug.Log("Boat capacity is: " + boatCapacity);
+        if (PlayerPrefs.GetFloat("increaseCapacityCost") == 0)
+        {
+            increaseCapacityCost = 15;
+            PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
+        }
+        else
+        {
+            increaseCapacityCost = PlayerPrefs.GetFloat("IncreaseCapacityCost");
+        }
+
+        //Debug.Log("Boat capacity is: " + boatCapacity);
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        if(float.Parse(gameScore.text) == boatCapacity)
+    {
+        boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");
+
+        //Debug.Log(boatCapacity + " " + increaseCapacityCost);
+
+        if (float.Parse(gameScore.text) == boatCapacity)
         {
             collectScreen.isCapacityFull = true;
         }
@@ -43,10 +60,14 @@ public class UpgradeController : MonoBehaviour
     public void increaseBoatCapacity()
     {   
         float total = float.Parse(totalScoree.text);  
-        if(total >= 15)
+        if(total >= increaseCapacityCost)
         {
             total = total - increaseCapacityCost;
 ;           totalScoree.text = total.ToString();
+
+            increaseCapacityCost += 15;
+            PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
+
             boatCapacity += 3;
         }
 
@@ -55,4 +76,8 @@ public class UpgradeController : MonoBehaviour
         PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
     }
 
+    public void multipleCatch()
+    {
+        multipleCatchisOn = false;
+    }
 }

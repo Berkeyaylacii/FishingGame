@@ -103,7 +103,7 @@ public class AdManager : MonoBehaviour
     void RequestInterstitialAd()                  //need trigger
     {
 #if UNITY_ANDROID
-        string interstitialAdID = "ca-app-pub-3940256099942544/1033173712"; //test-id
+        string interstitialAdID = "ca-app-pub-3982814711633983/1640931253"; //test-id
 #elif UNITY_IPHONE
         string bannerAddID = "ca-app-pub-3940256099942544/1033173712";
 #else
@@ -120,7 +120,7 @@ public class AdManager : MonoBehaviour
     void RequestInterstitialAd2x()                  //need trigger
     {
 #if UNITY_ANDROID
-        string interstitialAdID = "ca-app-pub-3940256099942544/1033173712"; //test-id
+        string interstitialAdID = "ca-app-pub-3982814711633983/1640931253"; //test-id
 #elif UNITY_IPHONE
         string bannerAddID = "ca-app-pub-3940256099942544/1033173712";
 #else

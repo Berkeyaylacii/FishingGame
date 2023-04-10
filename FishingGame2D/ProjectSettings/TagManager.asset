@@ -30,6 +30,8 @@ TagManager:
   - TotalScore
   - FishManager
   - Test
+  - UpgradeController
+  - CurrentCapacity
   layers:
   - Default
   - TransparentFX

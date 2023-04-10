@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 public class HookCollisions : MonoBehaviour
 {
     public ObstacleColliders ObstacleColliders;
+    public UpgradeController UpgradeController;
 
     public GameObject fish;
 
@@ -50,22 +51,31 @@ public class HookCollisions : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {   
         
-        if (collision.gameObject.tag == "Fish" && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýk yakalanýyor
+        if (collision.gameObject.tag == "Fish"  && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýk yakalanýyor
         {
             fishCatchSound.Play();
-            ifHooked = true;
+
+            if(UpgradeController.multipleCatchisOn == false)
+            {
+                ifHooked = true;
+            }
+           
+            
             fishCount++;
             //Debug.Log("toplam balýk: " + fishCount);
 
-            colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
+            //colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
             collision.gameObject.GetComponent<Collider2D>().enabled = false;
             collision.gameObject.GetComponent<HingeJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
             collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
             collision.gameObject.GetComponent<Rigidbody2D>().mass = 20f;
             collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 
-            worm.gameObject.SetActive(false);                    //disappear the worm
-
+            if (UpgradeController.multipleCatchisOn == false)
+            {
+                worm.gameObject.SetActive(false);     //disappear the worm
+            }
+                              
             collision.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched
 
             if (collision.gameObject != null)

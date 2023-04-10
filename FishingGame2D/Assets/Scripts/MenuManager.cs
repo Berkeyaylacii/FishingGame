@@ -36,6 +36,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tap_txt;
     [SerializeField] private TextMeshProUGUI baitCount_txt;
     [SerializeField] private TextMeshProUGUI boatCapacity_txt;
+    [SerializeField] private TextMeshProUGUI currentCapacity;
+    [SerializeField] private TextMeshProUGUI increaseCapacityCostText;
 
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
@@ -60,8 +62,7 @@ public class MenuManager : MonoBehaviour
     float time;
     float boatCap;
     void Start()
-    {
-        //PlayerPrefs.DeleteAll();
+    {        
         mainCamera = Camera.main;
 
         startPos = mainCamera.transform.position;
@@ -96,6 +97,9 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
+        currentCapacity.SetText(PlayerPrefs.GetFloat("BoatCapacity").ToString());
+        increaseCapacityCostText.SetText(PlayerPrefs.GetFloat("IncreaseCapacityCost").ToString());
+
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
             //Debug.Log(moveCamera);
