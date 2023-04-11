@@ -29,6 +29,10 @@ TagManager:
   - Bubbles
   - TotalScore
   - FishManager
+  - Test
+  - UpgradeController
+  - CurrentCapacity
+  - MultipleCatchButton
   layers:
   - Default
   - TransparentFX
