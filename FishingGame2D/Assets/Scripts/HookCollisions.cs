@@ -138,6 +138,7 @@ public class HookCollisions : MonoBehaviour
         colliderofHook.enabled = true;
         worm.gameObject.SetActive(true); 
         ifHooked = false;
+        ObstacleColliders.decreseaBaitOnce = false;
         fishCount = 0;             //reset the fish count at hook
     }
 

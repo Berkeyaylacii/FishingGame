@@ -32,6 +32,7 @@ TagManager:
   - Test
   - UpgradeController
   - CurrentCapacity
+  - MultipleCatchButton
   layers:
   - Default
   - TransparentFX

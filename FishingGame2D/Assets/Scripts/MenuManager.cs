@@ -298,4 +298,6 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1;
         fishSpawner.SetActive(true);
     }
+
+
 }
