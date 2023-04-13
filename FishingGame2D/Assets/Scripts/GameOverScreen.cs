@@ -53,6 +53,6 @@ public class GameOverScreen : MonoBehaviour
             hook.SetActive(true);
             menuManager.isInGame = true;
 
-}
+    }
 
 }
