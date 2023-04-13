@@ -19,13 +19,14 @@ public class UpgradeController : MonoBehaviour
     public Button MultipleCatchButton; 
 
     public float boatCapacity = 5;
-    private float increaseCapacityCost = 15;
+    private float increaseCapacityCost;
     public bool multipleCatchisOn = false;
     public string multCatch;
 
     void Start()
     {
         //PlayerPrefs.DeleteAll();
+        
         MultipleCatchButton = Upgrade2Panel.GetComponent<Button>();
 
         if (PlayerPrefs.GetFloat("BoatCapacity") == 0)
@@ -38,7 +39,7 @@ public class UpgradeController : MonoBehaviour
             boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");   
         }
 
-        if (PlayerPrefs.GetFloat("increaseCapacityCost") == 0)
+        if (PlayerPrefs.GetFloat("IncreaseCapacityCost") == 0)
         {
             increaseCapacityCost = 15;
             PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
@@ -53,7 +54,8 @@ public class UpgradeController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        
         boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");
         multCatch = PlayerPrefs.GetString("MultipleCatch");
 
