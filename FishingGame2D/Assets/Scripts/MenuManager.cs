@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
     public FishMovement FishMovement;
     public HookCollisions HookCollisions;
     public CollectScreen CollectScreen;
-    public AdManager AdManager;
+    public BannerAdManager BannerAdManager;
     public UpgradeController UpgradeController;
 
     GameObject hook;
@@ -168,7 +168,6 @@ public class MenuManager : MonoBehaviour
 
         if (isInMainMenu == true)
         { 
-            AdManager.addWatchButton.interactable = true;   //to reset the add reward each game
 
             collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
             //mainMenuSound.Play();
