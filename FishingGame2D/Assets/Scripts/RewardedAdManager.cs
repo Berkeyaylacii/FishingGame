@@ -7,7 +7,7 @@ using System;
 public class RewardedAdManager : MonoBehaviour
 {   
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3982814711633983/1640931253";
+    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
 #else
