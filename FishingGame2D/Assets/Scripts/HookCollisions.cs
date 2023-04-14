@@ -4,17 +4,21 @@ using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class HookCollisions : MonoBehaviour
 {
     public ObstacleColliders ObstacleColliders;
     public UpgradeController UpgradeController;
+    public MenuManager MenuManager;
 
     public GameObject fish;
+    public GameObject fishMouth;
 
     public Rigidbody2D rbofFish;
 
     public GameObject hook;
+    public GameObject hookPoint;
 
     public GameObject worm;
 
@@ -32,6 +36,8 @@ public class HookCollisions : MonoBehaviour
     public bool ifHooked = false;
     public float reset = 0;
     public float fishCount = 0;
+
+    public GameObject[] Fishes;
     void Start()
     {
         total_score_txt.text = PlayerPrefs.GetFloat("TotalScore").ToString();
@@ -45,7 +51,12 @@ public class HookCollisions : MonoBehaviour
         {
             takeFishToBoat();
         }
- 
+
+        if(MenuManager.isInGame == true && ifHooked == false && worm.activeSelf == true)
+        {
+            fishEatsBait();
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -95,7 +106,7 @@ public class HookCollisions : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "Obstacle" && ifHooked == false && worm.activeSelf == true)   // Olta yemliyken objeye çarpýyor
+        /*if (collision.gameObject.tag == "Obstacle" && ifHooked == false && worm.activeSelf == true)   // Olta yemliyken objeye çarpýyor
         {
             wormDropSound.Play();             //worm hits obstacle
             colliderofHook.enabled = false;
@@ -110,7 +121,7 @@ public class HookCollisions : MonoBehaviour
             }
         }
 
-        /*if (collision.gameObject.tag == "Obstacle" && ifHooked == true && worm.activeSelf == false)         //Oltada balýk varken objeye çarpýyor
+        if (collision.gameObject.tag == "Obstacle" && ifHooked == true && worm.activeSelf == false)         //Oltada balýk varken objeye çarpýyor
         {
             if (GameObject.FindGameObjectWithTag("HookedFish") != null)
             {
@@ -173,4 +184,51 @@ public class HookCollisions : MonoBehaviour
         total_score_txt.text = totalScore.ToString();
         PlayerPrefs.SetFloat("TotalScore", totalScore);
     }
+
+    public void fishEatsBait()
+    {
+        Fishes = GameObject.FindGameObjectsWithTag("Fish");
+        foreach (GameObject fis in Fishes)
+        {
+            float distance = Vector3.Distance(fis.transform.position, this.transform.position);
+            if(distance <= 0.5f)
+            {
+
+                fishCatchSound.Play();
+
+                fis.transform.gameObject.tag = "HookedFish";
+                if (UpgradeController.multipleCatchisOn == false)
+                {
+                    ifHooked = true;
+                }
+
+                fishCount++;
+                //Debug.Log("toplam balýk: " + fishCount);
+
+                fis.gameObject.GetComponent<HingeJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                fis.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+                fis.gameObject.GetComponent<Rigidbody2D>().mass = 20f;
+                fis.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+
+                if (UpgradeController.multipleCatchisOn == false)
+                {
+                    worm.gameObject.SetActive(false);     //disappear the worm
+                }
+
+                fis.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched
+
+                fis.transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);         //fish become parent of hook
+
+                if (fis.transform.rotation.eulerAngles.y == 180)                    //
+                {
+                    fis.transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(-0.3f, 0, 0);
+                }
+                else if (fis.transform.rotation.eulerAngles.y == 0)
+                {
+                    fis.transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(0.3f, 0, 0);
+                }
+            }
+        }
+    }
+
 }

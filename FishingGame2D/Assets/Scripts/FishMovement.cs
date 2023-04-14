@@ -21,10 +21,10 @@ public class FishMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("CreateFishRight", 1f, 3f);
-        InvokeRepeating("CreateObstacleRight", 5f, 7f);
+        InvokeRepeating("CreateFishRight", 1f, 1f);
+        InvokeRepeating("CreateObstacleRight", 4f, 7f);  
 
-        InvokeRepeating("CreateFishLeft", 3f, 4f);
+        InvokeRepeating("CreateFishLeft", 3f, 2f);
         InvokeRepeating("CreateObstacleLeft", 12.5f, 12f);
     }
 

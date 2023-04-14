@@ -2611,9 +2611,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObstacleColliders: {fileID: 1276432731}
   UpgradeController: {fileID: 1120783886}
+  MenuManager: {fileID: 2070146817}
   fish: {fileID: 1950280653096967214, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
+  fishMouth: {fileID: 0}
   rbofFish: {fileID: 161788339554904435, guid: aeb94070e2e621842b04b6c1ad668e3e, type: 3}
   hook: {fileID: 357840924576120227}
+  hookPoint: {fileID: 1200492484}
   worm: {fileID: 324595307}
   colliderofHook: {fileID: 664940409}
   baitCount_txt: {fileID: 289741431}
@@ -2624,6 +2627,7 @@ MonoBehaviour:
   ifHooked: 0
   reset: 0
   fishCount: 0
+  Fishes: []
 --- !u!1 &685419683
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,89 +3724,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &959231580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 959231581}
-  - component: {fileID: 959231584}
-  - component: {fileID: 959231583}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &959231581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959231580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.44, y: 5.25, z: -10}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7839610023805137138}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &959231583
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959231580}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: bc0c7787e289f0d41b9f81f38104ea97, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &959231584
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959231580}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &968153140
 GameObject:
   m_ObjectHideFlags: 0
@@ -5558,6 +5479,7 @@ MonoBehaviour:
   MenuManager: {fileID: 2070146817}
   UpgradeController: {fileID: 1120783886}
   Worm: {fileID: 324595307}
+  Hook: {fileID: 357840924576120227}
   Obstacles: []
   wormDropSound: {fileID: 1276432730}
   baitCount_txt: {fileID: 289741431}
@@ -9040,7 +8962,6 @@ Transform:
   - {fileID: 774532067}
   - {fileID: 1200492485}
   - {fileID: 324595308}
-  - {fileID: 959231581}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

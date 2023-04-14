@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class ObstacleColliders : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ObstacleColliders : MonoBehaviour
     public UpgradeController UpgradeController;
 
     public GameObject Worm;
+    public GameObject Hook;
     public GameObject[] Obstacles;
 
     [SerializeField] private AudioSource wormDropSound;
@@ -39,6 +41,7 @@ public class ObstacleColliders : MonoBehaviour
                 if (GameObject.FindGameObjectWithTag("Hook").activeSelf == true )
                 {
                     float distance = Vector3.Distance(hookedFish.transform.position, closestObstacle.transform.position);
+                    
                     if (distance <= 0.85f)    //If hookedfish hits to obstacle
                     {
                         wormDropSound.Play();                  //worm drop sound
@@ -71,6 +74,37 @@ public class ObstacleColliders : MonoBehaviour
 
                         }
                     }
+
+                    
+                }
+            }
+
+            //baithitsobstacle  MULTÝPLECATCH AÇIKKEN YEME ÇARPINCA YEM DÜÞÜYOR, ÇÖZÜLMESÝ LAZIM, ÞU AN MULTÝPLECATCH AÇIKKEN HÝÇ TEPKÝ VERMÝYOR
+            GameObject closestObstacle2 = null;
+            if (GameObject.FindGameObjectWithTag("Obstacle") != null && HookCollisions.ifHooked == false && Worm.activeSelf == true && UpgradeController.multipleCatchisOn == false)
+            {
+                closestObstacle2 = FindNearestObstacleToHook();
+                float distance2 = Vector3.Distance(Hook.transform.position, closestObstacle2.transform.position);
+                if(Worm.activeSelf == true)
+                {               
+                    if (distance2 <= 0.55f)
+                    {
+                        Debug.Log("Yeme obje çarptý");
+                        if (Worm.activeSelf == true && HookCollisions.ifHooked == false)
+                        {
+                            wormDropSound.Play();             //worm hits obstacle
+
+                            Worm.gameObject.SetActive(false);     //disappear the worm
+
+                            float baitct = float.Parse(baitCount_txt.text);
+                            if (baitct > 0)
+                            {
+                                baitct = baitct - 1;
+                                Debug.Log("Bait -1");
+                                baitCount_txt.text = baitct.ToString();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -97,5 +131,24 @@ public class ObstacleColliders : MonoBehaviour
         return nearestObstacle;
     }
 
+    public GameObject FindNearestObstacleToHook()
+    {
+        Obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        GameObject nearestObstacle = null;
+        float dist = Mathf.Infinity;
+        Vector3 posOfHook = Hook.transform.position;
+        foreach (GameObject obs in Obstacles)
+        {
+            Vector3 diff = obs.transform.position - posOfHook;
+            float currDistance = diff.sqrMagnitude;
+            if (currDistance < dist)
+            {
+                nearestObstacle = obs;
+                dist = currDistance;
+            }
+        }
+
+        return nearestObstacle;
+    }
 
 }
