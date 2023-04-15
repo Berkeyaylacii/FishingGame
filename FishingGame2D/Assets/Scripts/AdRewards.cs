@@ -21,5 +21,6 @@ public class AdRewards : MonoBehaviour
         Debug.Log("buraya girdi");
         MenuManager.ReturnMainMenu2xCollect();
     }
+    
 
 }

@@ -47,12 +47,13 @@ public class HookCollisions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (this.transform.position.y >= 3.9f)     //if fish is moved to boat position, to remove the fish from the hook
         {
             takeFishToBoat();
         }
 
-        if(MenuManager.isInGame == true && ifHooked == false && worm.activeSelf == true)
+        if(MenuManager.isInGame == true && ifHooked == false && worm.activeSelf == true && fishCount < UpgradeController.fishLimit)
         {
             fishEatsBait();
         }

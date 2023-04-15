@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class ObstacleColliders : MonoBehaviour
 {
@@ -27,33 +26,34 @@ public class ObstacleColliders : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {       
-        if (MenuManager.isInGame == true)
+    {
+        if (MenuManager.isInGame == true)      //Fish hits obstacle
         {
             GameObject closestObstacle = null;
-            if(GameObject.FindGameObjectWithTag("HookedFish") != null && GameObject.FindGameObjectWithTag("Obstacle") != null)
-            {   
+            if (GameObject.FindGameObjectWithTag("HookedFish") != null && GameObject.FindGameObjectWithTag("Obstacle") != null)
+            {
                 hookedFish = GameObject.FindGameObjectWithTag("HookedFish");
                 closestObstacle = FindNearestObstacle();
             }
-        
-            if (hookedFish != null && Obstacles != null)  { 
-                if (GameObject.FindGameObjectWithTag("Hook").activeSelf == true )
+
+            if (hookedFish != null && Obstacles != null)
+            {
+                if (GameObject.FindGameObjectWithTag("Hook").activeSelf == true)
                 {
                     float distance = Vector3.Distance(hookedFish.transform.position, closestObstacle.transform.position);
-                    
+
                     if (distance <= 0.85f)    //If hookedfish hits to obstacle
                     {
                         wormDropSound.Play();                  //worm drop sound
-                        float baitct = float.Parse(baitCount_txt.text);      
+                        float baitct = float.Parse(baitCount_txt.text);
                         if (baitct > 0)
-                        {   
+                        {
                             if (UpgradeController.multipleCatchisOn == false)
                             {
                                 Debug.Log("single");
                                 baitct = baitct - 1;
                                 baitCount_txt.text = baitct.ToString();
-                                Worm.SetActive(false);                           
+                                Worm.SetActive(false);
                                 HookCollisions.fishCount = 0;      //Set total hookedfish to 0                           
                                 HookCollisions.ifHooked = false;
                                 Destroy(hookedFish);
@@ -75,13 +75,14 @@ public class ObstacleColliders : MonoBehaviour
                         }
                     }
 
-                    
+
                 }
             }
+        }
 
-            //baithitsobstacle  MULTÝPLECATCH AÇIKKEN YEME ÇARPINCA YEM DÜÞÜYOR, ÇÖZÜLMESÝ LAZIM, ÞU AN MULTÝPLECATCH AÇIKKEN HÝÇ TEPKÝ VERMÝYOR
+        if (MenuManager.isInGame == true) {          //Bait hits obstacle
             GameObject closestObstacle2 = null;
-            if (GameObject.FindGameObjectWithTag("Obstacle") != null && HookCollisions.ifHooked == false && Worm.activeSelf == true && UpgradeController.multipleCatchisOn == false)
+            if (GameObject.FindGameObjectWithTag("Obstacle") != null && HookCollisions.ifHooked == false && Worm.activeSelf == true && HookCollisions.fishCount == 0)
             {
                 closestObstacle2 = FindNearestObstacleToHook();
                 float distance2 = Vector3.Distance(Hook.transform.position, closestObstacle2.transform.position);
@@ -89,7 +90,6 @@ public class ObstacleColliders : MonoBehaviour
                 {               
                     if (distance2 <= 0.55f)
                     {
-                        Debug.Log("Yeme obje çarptý");
                         if (Worm.activeSelf == true && HookCollisions.ifHooked == false)
                         {
                             wormDropSound.Play();             //worm hits obstacle

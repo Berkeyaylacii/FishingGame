@@ -1,22 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoogleMobileAds;
 using GoogleMobileAds.Api;
 using System;
 
 public class RewardedAdManager : MonoBehaviour
 {   
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
+    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917"; //ca-app-pub-3982814711633983/6133280384
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
 #else
   private string _adUnitId = "unused";
 #endif
 
-
     private RewardedAd rewardedAd;
-
     public AdRewards AdRewards;
 
     void Start()
@@ -63,8 +62,6 @@ public class RewardedAdManager : MonoBehaviour
 
     public void ShowRewardedAd()
     {
-        const string rewardMsg =
-            "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
 
         if (rewardedAd != null && rewardedAd.CanShowAd())
         {
@@ -78,8 +75,6 @@ public class RewardedAdManager : MonoBehaviour
 
     public void ShowRewardedAd2x()
     {
-        const string rewardMsg =
-          "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
 
         if (rewardedAd != null && rewardedAd.CanShowAd())
         {

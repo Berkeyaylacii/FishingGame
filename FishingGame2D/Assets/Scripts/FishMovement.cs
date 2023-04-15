@@ -22,10 +22,10 @@ public class FishMovement : MonoBehaviour
     void Start()
     {
         InvokeRepeating("CreateFishRight", 1f, 1f);
-        InvokeRepeating("CreateObstacleRight", 4f, 7f);  
+        InvokeRepeating("CreateObstacleRight", 4f, 5f);  
 
         InvokeRepeating("CreateFishLeft", 3f, 2f);
-        InvokeRepeating("CreateObstacleLeft", 12.5f, 12f);
+        InvokeRepeating("CreateObstacleLeft", 12.5f, 6f);
     }
 
     // Update is called once per frame

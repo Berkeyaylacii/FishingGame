@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour
     public CollectScreen CollectScreen;
     public BannerAdManager BannerAdManager;
     public UpgradeController UpgradeController;
+    public GecisAdManager GecisAdManager;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
@@ -39,6 +40,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentCapacity;
     [SerializeField] private TextMeshProUGUI increaseCapacityCostText;
 
+    [SerializeField] private TextMeshProUGUI fishLimit;
+    [SerializeField] private TextMeshProUGUI increaseFishLimitCost;
+
+
     [SerializeField] private GameObject hand_icon;
     [SerializeField] private GameObject score;
 
@@ -59,6 +64,8 @@ public class MenuManager : MonoBehaviour
     //
     Vector3 startPos;
     Vector3 targetPos;
+
+    public int timesPlayed = 0;
     float time;
     float boatCap;
     void Start()
@@ -99,6 +106,9 @@ public class MenuManager : MonoBehaviour
         boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
         currentCapacity.SetText(PlayerPrefs.GetFloat("BoatCapacity").ToString());
         increaseCapacityCostText.SetText(PlayerPrefs.GetFloat("IncreaseCapacityCost").ToString());
+        fishLimit.SetText(PlayerPrefs.GetFloat("FishLimit").ToString());
+        increaseFishLimitCost.SetText(PlayerPrefs.GetFloat("IncreaseFishLimitCost").ToString());
+
 
         if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
         {
@@ -231,6 +241,12 @@ public class MenuManager : MonoBehaviour
 
         collectPanel.SetActive(false);  
         gameOverPanel.SetActive(false);
+        timesPlayed++;
+
+        if(timesPlayed % 3 == 0)
+        {
+            GecisAdManager.ShowAd();
+        }
         
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
@@ -247,6 +263,11 @@ public class MenuManager : MonoBehaviour
 
         collectPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        timesPlayed++;
+        if (timesPlayed % 3 == 0)
+        {
+            GecisAdManager.ShowAd();
+        }
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         ifCollect = false;
@@ -263,6 +284,7 @@ public class MenuManager : MonoBehaviour
 
         collectPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        timesPlayed++;
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         ifCollect = true;
