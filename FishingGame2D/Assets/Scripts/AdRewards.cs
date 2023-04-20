@@ -9,6 +9,8 @@ public class AdRewards : MonoBehaviour
 
     public GameOverScreen GameOverScreen;
     public MenuManager MenuManager;
+    public HookCollisions HookCollisions;
+
 
     public void GiveReward()
     {
@@ -19,7 +21,8 @@ public class AdRewards : MonoBehaviour
     public void Give2xPoint()
     {
         Debug.Log("buraya girdi");
-        MenuManager.ReturnMainMenu2xCollect();
+        //MenuManager.ReturnMainMenu2xCollect();
+        HookCollisions.increaseTotalScore2x();
     }
     
 

@@ -15,10 +15,13 @@ public class ObstacleColliders : MonoBehaviour
     public GameObject Hook;
     public GameObject[] Obstacles;
 
+    public ParticleSystem obstacleHitParticle;
+
     [SerializeField] private AudioSource wormDropSound;
     public TextMeshProUGUI baitCount_txt;
 
     public bool decreseaBaitOnce = false;
+    public float distanceOfNearObstacle = 0;
     void Start()
     {
     
@@ -26,25 +29,30 @@ public class ObstacleColliders : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if (MenuManager.isInGame == true)      //Fish hits obstacle
-        {
+        {   
             GameObject closestObstacle = null;
             if (GameObject.FindGameObjectWithTag("HookedFish") != null && GameObject.FindGameObjectWithTag("Obstacle") != null)
-            {
+            {   
                 hookedFish = GameObject.FindGameObjectWithTag("HookedFish");
                 closestObstacle = FindNearestObstacle();
             }
+           
 
             if (hookedFish != null && Obstacles != null)
             {
                 if (GameObject.FindGameObjectWithTag("Hook").activeSelf == true)
-                {
-                    float distance = Vector3.Distance(hookedFish.transform.position, closestObstacle.transform.position);
+                {   
+                    
+                    distanceOfNearObstacle = Vector3.Distance(hookedFish.transform.position, closestObstacle.transform.position);
 
-                    if (distance <= 0.85f)    //If hookedfish hits to obstacle
+                    if (distanceOfNearObstacle <= 0.85f)    //If hookedfish hits to obstacle
                     {
                         wormDropSound.Play();                  //worm drop sound
+                        obstacleHitParticle = closestObstacle.GetComponent<ParticleSystem>();
+                        obstacleHitParticle.Play();
+
                         float baitct = float.Parse(baitCount_txt.text);
                         if (baitct > 0)
                         {
@@ -90,10 +98,14 @@ public class ObstacleColliders : MonoBehaviour
                 {               
                     if (distance2 <= 0.55f)
                     {
+                        
                         if (Worm.activeSelf == true && HookCollisions.ifHooked == false)
                         {
                             wormDropSound.Play();             //worm hits obstacle
+                            obstacleHitParticle = closestObstacle2.GetComponent<ParticleSystem>();
+                            obstacleHitParticle.Play();
 
+                            Debug.Log("Particle played");
                             Worm.gameObject.SetActive(false);     //disappear the worm
 
                             float baitct = float.Parse(baitCount_txt.text);

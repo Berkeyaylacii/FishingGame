@@ -15,11 +15,12 @@ public class MenuManager : MonoBehaviour
     public BannerAdManager BannerAdManager;
     public UpgradeController UpgradeController;
     public GecisAdManager GecisAdManager;
+    public MultiplierManager MultiplierManager;
 
     GameObject hook;
     GameObject hand;           //Main Menu icon
     GameObject baitCountText;
-    GameObject bubbles;
+    public ParticleSystem bubbleParticle;
 
     public GameObject gameOverPanel;
     public GameObject collectPanel;
@@ -39,6 +40,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI boatCapacity_txt;
     [SerializeField] private TextMeshProUGUI currentCapacity;
     [SerializeField] private TextMeshProUGUI increaseCapacityCostText;
+
+    [SerializeField] private TextMeshProUGUI gameScoreAtPanel;
 
     [SerializeField] private TextMeshProUGUI fishLimit;
     [SerializeField] private TextMeshProUGUI increaseFishLimitCost;
@@ -78,8 +81,7 @@ public class MenuManager : MonoBehaviour
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
         score = GameObject.FindGameObjectWithTag("Score");
-        baitCountText = GameObject.FindGameObjectWithTag("BaitCount");
-        bubbles = GameObject.FindGameObjectWithTag("Bubbles");       
+        baitCountText = GameObject.FindGameObjectWithTag("BaitCount");    
 
         hook.SetActive(false);
         score.SetActive(false);
@@ -88,7 +90,6 @@ public class MenuManager : MonoBehaviour
         collectPanel.SetActive(false);
         settingsPanel.SetActive(false);
         fishSpawner.SetActive(false);
-        bubbles.SetActive(false);
         howToPlayPanel.SetActive(false);
 
         gameScoreGroup.SetActive(false);
@@ -114,11 +115,11 @@ public class MenuManager : MonoBehaviour
         {
             //Debug.Log(moveCamera);
             totalScoreGroup.SetActive(false);
-            bubbles.SetActive(true);
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
             if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
             {
+                bubbleParticle.Play();  //Play buble particle once
                 isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
                 moveCamera = false;
@@ -129,7 +130,6 @@ public class MenuManager : MonoBehaviour
 
         if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working) Game Scene -> Main Menu
         {   
-            bubbles.SetActive(false);
             CollectScreen.isCapacityFull = false; // restart the capacity
 
             gameScoreGroup.SetActive(false); 
@@ -140,7 +140,7 @@ public class MenuManager : MonoBehaviour
             {              
                 moveCameraToMenu = false;
                 time = 0;                 //Time set to 0 for Lerp to work correct way
-                isInMainMenu = true;      //flag to use hide gameover panel on another script
+                isInMainMenu = true;      //flag to use hide gameover panel on another script                
 
                 hook.SetActive(false);    //Deactive all necessery object to return the Main Menu
                 hand.SetActive(true);
@@ -179,9 +179,8 @@ public class MenuManager : MonoBehaviour
         if (isInMainMenu == true)
         { 
 
-            collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
+            //collectPanel.SetActive(false);   //when in mainmenu collectpanel closes
             //mainMenuSound.Play();
-            bubbles.SetActive(false);
             //gameSceneSound.Play();               //Plays main menu sound
             gameScoreGroup.SetActive(false);
             totalScoreGroup.SetActive(true);
@@ -192,10 +191,10 @@ public class MenuManager : MonoBehaviour
                 {
                     if(obj != null)
                     {
-                        Destroy(obj);
+                        Destroy(obj);                    
                     }
                 }
-
+                FishMovement.rightSpawns.Clear();
                 foreach (GameObject obj in FishMovement.leftSpawns)
                 {
                     if (obj != null)
@@ -203,6 +202,11 @@ public class MenuManager : MonoBehaviour
                         Destroy(obj);
                     }
                 }
+                FishMovement.leftSpawns.Clear();
+
+                MultiplierManager.SharksPassed.Clear();
+                MultiplierManager.ObstaclesPassed.Clear();
+                //Clean also the arrays.
             }
         }
     }
@@ -239,20 +243,21 @@ public class MenuManager : MonoBehaviour
             gameSceneSound.Stop();
         }
 
-        collectPanel.SetActive(false);  
+        collectPanel.SetActive(true);  
         gameOverPanel.SetActive(false);
+        gameScoreAtPanel.text = HookCollisions.score_txt.text;
+
         timesPlayed++;
 
-        if(timesPlayed % 3 == 0)
+        if(timesPlayed % 4 == 0)
         {
             GecisAdManager.ShowAd();
         }
         
-
         mainCamera.GetComponent<LineRenderer>().enabled = false;
-        ifCollect = true;
         moveCameraToMenu = true;       
     }     
+
 
     public void ReturnMainMenuWithout()
     {
@@ -261,10 +266,10 @@ public class MenuManager : MonoBehaviour
             gameSceneSound.Stop();
         }
 
-        collectPanel.SetActive(false);
+        //collectPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         timesPlayed++;
-        if (timesPlayed % 3 == 0)
+        if (timesPlayed % 4 == 0)
         {
             GecisAdManager.ShowAd();
         }
@@ -282,13 +287,14 @@ public class MenuManager : MonoBehaviour
             gameSceneSound.Stop();
         }
 
-        collectPanel.SetActive(false);
+        //collectPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         timesPlayed++;
 
         mainCamera.GetComponent<LineRenderer>().enabled = false;
-        ifCollect = true;
-        ifCollect2x = true;
+
+        //ifCollect = true;
+        //ifCollect2x = true;
         moveCameraToMenu = true;
     }
 

@@ -19,19 +19,23 @@ public class HookCollisions : MonoBehaviour
 
     public GameObject hook;
     public GameObject hookPoint;
-
     public GameObject worm;
+
+    public ParticleSystem bubbleParticle;
 
     public Collider2D colliderofHook;
 
     [SerializeField] public TextMeshProUGUI baitCount_txt;
 
     [SerializeField] public TextMeshProUGUI score_txt;
+    [SerializeField] public TextMeshProUGUI scoreatPanel;
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
     [SerializeField] public AudioSource fishCatchSound;
     [SerializeField] public AudioSource wormDropSound;
+
+    public ParticleSystem particle;
 
     public bool ifHooked = false;
     public float reset = 0;
@@ -53,7 +57,7 @@ public class HookCollisions : MonoBehaviour
             takeFishToBoat();
         }
 
-        if(MenuManager.isInGame == true && ifHooked == false && worm.activeSelf == true && fishCount < UpgradeController.fishLimit)
+        if(MenuManager.isInGame == true && ifHooked == false && worm.activeSelf == true && fishCount < UpgradeController.fishLimit)  //Fish eats bait
         {
             fishEatsBait();
         }
@@ -154,7 +158,7 @@ public class HookCollisions : MonoBehaviour
         fishCount = 0;             //reset the fish count at hook
     }
 
-    private void increasePoint()
+    private void increasePoint()  //increases gameplay score
     {
         float skor = float.Parse(score_txt.text);
         skor = skor + 1;
@@ -169,25 +173,39 @@ public class HookCollisions : MonoBehaviour
     public void increaseTotalScore()
     {
         float totalScore = float.Parse(total_score_txt.text);
-        float score = float.Parse(score_txt.text);
+        float score = float.Parse(scoreatPanel.text);  
         totalScore += score;
 
-        total_score_txt.text = totalScore.ToString();
+        particle.Play();
+        UpgradeController.AddValue(score);   //increaseAnimation
+        score = 0;    //reset
+        scoreatPanel.text = score.ToString();  //reset           
+        //total_score_txt.text = totalScore.ToString();
+
         PlayerPrefs.SetFloat("TotalScore", totalScore);
+
+        MenuManager.collectPanel.SetActive(false);  //close the collectpanel
     }
 
     public void increaseTotalScore2x()
     {
         float totalScore = float.Parse(total_score_txt.text);
-        float score = float.Parse(score_txt.text);
+        float score = float.Parse(scoreatPanel.text);  
         totalScore += 2*score;
 
-        total_score_txt.text = totalScore.ToString();
+        particle.Play();
+        UpgradeController.AddValue(2*score);   //increase animation
+        score = 0;
+        scoreatPanel.text = score.ToString();
+        //total_score_txt.text = totalScore.ToString();
+
         PlayerPrefs.SetFloat("TotalScore", totalScore);
+
+        MenuManager.collectPanel.SetActive(false);  //close the collectpanel
     }
 
     public void fishEatsBait()
-    {
+    {   
         Fishes = GameObject.FindGameObjectsWithTag("Fish");
         foreach (GameObject fis in Fishes)
         {
@@ -196,7 +214,8 @@ public class HookCollisions : MonoBehaviour
             {
 
                 fishCatchSound.Play();
-
+                fis.GetComponent<ParticleSystem>().Clear();
+                fis.GetComponent<ParticleSystem>().enableEmission = false; //Deactivate the bubble particles
                 fis.transform.gameObject.tag = "HookedFish";
                 if (UpgradeController.multipleCatchisOn == false)
                 {

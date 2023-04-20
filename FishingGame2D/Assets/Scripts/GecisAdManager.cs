@@ -9,7 +9,7 @@ public class GecisAdManager : MonoBehaviour
 {
     // These ad units are configured to always serve test ads.
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/1033173712"; //ca-app-pub-3982814711633983/5317632983
+    private string _adUnitId = "ca-app-pub-3940256099942544/1033173712"; //ca-app-pub-3982814711633983/5317632983 test:ca-app-pub-3940256099942544/1033173712
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/4411468910";
 #else
@@ -100,7 +100,8 @@ public class GecisAdManager : MonoBehaviour
         };
         // Raised when the ad closed full screen content.
         ad.OnAdFullScreenContentClosed += () =>
-        {
+        {   
+
             Debug.Log("Interstitial ad full screen content closed.");
             LoadInterstitialAd();
         };

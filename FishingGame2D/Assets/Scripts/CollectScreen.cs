@@ -27,18 +27,11 @@ public class CollectScreen : MonoBehaviour
     {
         if (isCapacityFull == true)
         {   
-            FishManager.SetActive(false);
+            //FishManager.SetActive(false);
             Hook.SetActive(false);
-            if (menuManager.isInMainMenu == false)
-            {
-                CollectPanel.SetActive(true);
-                menuManager.isInGame = false;             
-            }
-            else if (menuManager.isInMainMenu == true)   //burasý çalýþmadý, o yüzden menu manager'da kapatýldý.
-            {
-                CollectPanel.SetActive(false);   
-                
-            }         
+            menuManager.isInGame = false;
+            menuManager.ReturnMainMenu();
+           
         }
     }
 

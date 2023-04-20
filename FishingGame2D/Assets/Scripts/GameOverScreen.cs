@@ -51,8 +51,9 @@ public class GameOverScreen : MonoBehaviour
             GameOverPanel.SetActive(false);
             FishManager.SetActive(true);
             hook.SetActive(true);
+            hook.transform.position = new Vector3(0f, 3.5f, 0f);
             menuManager.isInGame = true;
 
     }
-
+    
 }

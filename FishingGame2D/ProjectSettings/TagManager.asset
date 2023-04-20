@@ -33,6 +33,7 @@ TagManager:
   - UpgradeController
   - CurrentCapacity
   - MultipleCatchButton
+  - Shark
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Newtonsoft.Json;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class UpgradeController : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class UpgradeController : MonoBehaviour
     public TextMeshProUGUI gameScore;
     public TextMeshProUGUI increaseCapacityCostText;
     public TextMeshProUGUI multipleCatchText;
+
+    /// for number inc-dec animation
+    public TextMeshProUGUI testNumberText;
+    public float countDuration = 1;
+    float currentValue;
+    Coroutine Crt;
+    public ParticleSystem particle;
+    /// for number inc-dec animation
 
     public GameObject Upgrade2Panel;
     public Button MultipleCatchButton; 
@@ -29,7 +38,7 @@ public class UpgradeController : MonoBehaviour
 
     void Start()
     {
-        //PlayerPrefs.DeleteAll();
+       //PlayerPrefs.DeleteAll();
         
         MultipleCatchButton = Upgrade2Panel.GetComponent<Button>();
 
@@ -84,7 +93,7 @@ public class UpgradeController : MonoBehaviour
         fishLimit = PlayerPrefs.GetFloat("FishLimit");
         increaseFishLimitCost = PlayerPrefs.GetFloat("IncreaseFishLimitCost");
         multCatch = PlayerPrefs.GetString("MultipleCatch");
-        //Debug.Log(fishLimit);
+        //Debug.Log(currentValue);
         if(multCatch == "True")
         {
             multipleCatchisOn = true;
@@ -106,12 +115,13 @@ public class UpgradeController : MonoBehaviour
     }
 
     public void increaseBoatCapacity()
-    {   
+    {
         float total = float.Parse(totalScoree.text);  
         if(total >= increaseCapacityCost)
         {
             total = total - increaseCapacityCost;
-;           totalScoree.text = total.ToString();
+;           //totalScoree.text = total.ToString();
+            DecreaseValue(increaseCapacityCost);   //animated number decrease
 
             increaseCapacityCost += 15;
             PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
@@ -130,7 +140,9 @@ public class UpgradeController : MonoBehaviour
         if(total1 >= increaseFishLimitCost)
         {
             total1 = total1 - increaseFishLimitCost;
-            totalScoree.text = total1.ToString();
+            //totalScoree.text = total1.ToString();
+            DecreaseValue(increaseFishLimitCost);
+
             PlayerPrefs.SetFloat("TotalScore", total1);
 
             increaseFishLimitCost += 15;
@@ -145,4 +157,40 @@ public class UpgradeController : MonoBehaviour
             //MultipleCatchButton.interactable = false;
         }
     }
+
+    IEnumerator CountTo(float value)  
+    {
+        currentValue = float.Parse(totalScoree.text);   //current value set to Total value
+
+        value += currentValue;   
+        var rate = Mathf.Abs(value - currentValue) / countDuration;
+
+        while (currentValue != value)
+        {
+            currentValue = Mathf.MoveTowards(currentValue, value, rate * Time.deltaTime);
+ 
+            totalScoree.text = ((int)currentValue).ToString();  //TMP text set to new value
+            yield return null;
+        }
+        
+    }    
+    
+    public void AddValue(float value)
+    {   
+        float target = value;
+        if (Crt != null)
+            StopCoroutine(Crt);
+
+        Crt = StartCoroutine(CountTo(target));    
+    }
+
+    public void DecreaseValue(float value)
+    {
+        float target = -value;
+        if (Crt != null)
+            StopCoroutine(Crt);
+
+        Crt = StartCoroutine(CountTo(target));
+    }
+
 }
