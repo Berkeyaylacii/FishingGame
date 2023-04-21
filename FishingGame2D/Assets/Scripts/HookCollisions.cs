@@ -248,6 +248,8 @@ public class HookCollisions : MonoBehaviour
                     fis.transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(0.3f, 0, 0);
                 }
             }
+
+
         }
     }
 

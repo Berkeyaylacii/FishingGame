@@ -121,6 +121,14 @@ public class ObstacleColliders : MonoBehaviour
             }
         }
 
+        if (MenuManager.isInGame == false)  //Disable the fish bubbles when not in Game
+        {
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Fish"))
+            {
+                obj.GetComponent<ParticleSystem>().Stop();
+            }
+
+        }
     }
 
     public GameObject FindNearestObstacle()

@@ -15,8 +15,7 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] public TextMeshProUGUI score;
 
     public Camera mainCamera;
-
-    
+  
     void Start()
     {
         //isCapacityFull = false;
@@ -30,9 +29,10 @@ public class GameOverScreen : MonoBehaviour
         {   
             FishManager.SetActive(false);
             hook.SetActive(false);
-            if(menuManager.isInMainMenu == false)
+            GameOverPanel.SetActive(true);
+            if (menuManager.isInMainMenu == false && menuManager.moveCameraToMenu == true)
             {
-                GameOverPanel.SetActive(true);
+                GameOverPanel.SetActive(false);
                 menuManager.isInGame = false;
 
 }
@@ -45,15 +45,19 @@ public class GameOverScreen : MonoBehaviour
 
     public void RestartGame()  //If ad watched, give 1 more bait to play
     {
-            Debug.Log("reklam izlendi 1 kere ve ödül verildi.");
-            baitCount_txt.text = "1";
+         Debug.Log("reklam izlendi 1 kere ve ödül verildi.");
+         baitCount_txt.text = "1";
 
-            GameOverPanel.SetActive(false);
-            FishManager.SetActive(true);
-            hook.SetActive(true);
-            hook.transform.position = new Vector3(0f, 3.5f, 0f);
-            menuManager.isInGame = true;
-
+         GameOverPanel.SetActive(false);
+         FishManager.SetActive(true);
+         hook.SetActive(true);
+         hook.transform.position = new Vector3(0f, 3.5f, 0f);
+         menuManager.isInGame = true;
+            
+        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Fish"))  //Restart the bubbles after game restarts when ad watched
+        {
+            obj.GetComponent<ParticleSystem>().Play();
+        }
     }
     
 }

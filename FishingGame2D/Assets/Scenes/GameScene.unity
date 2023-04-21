@@ -5434,9 +5434,10 @@ MonoBehaviour:
   Upgrade2Panel: {fileID: 1608825567}
   MultipleCatchButton: {fileID: 0}
   boatCapacity: 0
-  multipleCatchisOn: 0
   multCatch: 
   fishLimit: 0
+  multipleCatchisOn: 0
+  isScoreIncreasing: 0
 --- !u!4 &1120783887
 Transform:
   m_ObjectHideFlags: 0
@@ -13717,7 +13718,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.7
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -13770,7 +13771,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 13
       minScalar: 5
       maxCurve:
         serializedVersion: 2

@@ -110,16 +110,14 @@ public class MenuManager : MonoBehaviour
         fishLimit.SetText(PlayerPrefs.GetFloat("FishLimit").ToString());
         increaseFishLimitCost.SetText(PlayerPrefs.GetFloat("IncreaseFishLimitCost").ToString());
 
-
-        if (moveCamera != false)             //Moves camera smoothly to the game scene, and Game Starts !
+        if (moveCamera != false)             //Moves camera smoothly Game Scene, and Game Starts !
         {
-            //Debug.Log(moveCamera);
+            //Debug.Log(moveCamera);           
             totalScoreGroup.SetActive(false);
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
             if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
-            {
-                bubbleParticle.Play();  //Play buble particle once
+            {                
                 isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
                 moveCamera = false;
@@ -128,7 +126,7 @@ public class MenuManager : MonoBehaviour
             
         }
 
-        if (moveCameraToMenu != false)       //Moves camera smoothly when tapped to main menu (smooth movement not working) Game Scene -> Main Menu
+        if (moveCameraToMenu != false)       //Moves camera smoothly Game Scene -> Main Menu
         {   
             CollectScreen.isCapacityFull = false; // restart the capacity
 
@@ -231,6 +229,8 @@ public class MenuManager : MonoBehaviour
         baitCountText.SetActive(true);
         Upgrade1Panel.SetActive(false);
         Upgrade2Panel.SetActive(false);
+
+        bubbleParticle.Play();  //Play buble particle once
 
         fishSpawner.SetActive(true);
     }

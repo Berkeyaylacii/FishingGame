@@ -29,13 +29,14 @@ public class UpgradeController : MonoBehaviour
 
     public float boatCapacity = 10;
     private float increaseCapacityCost;
- 
-    public bool multipleCatchisOn = false;
+    
     public string multCatch;
 
     public float fishLimit;
     private float increaseFishLimitCost;
 
+    public bool multipleCatchisOn = false;
+    public bool isScoreIncreasing = false;
     void Start()
     {
        //PlayerPrefs.DeleteAll();
@@ -94,6 +95,7 @@ public class UpgradeController : MonoBehaviour
         increaseFishLimitCost = PlayerPrefs.GetFloat("IncreaseFishLimitCost");
         multCatch = PlayerPrefs.GetString("MultipleCatch");
         //Debug.Log(currentValue);
+
         if(multCatch == "True")
         {
             multipleCatchisOn = true;
@@ -117,7 +119,7 @@ public class UpgradeController : MonoBehaviour
     public void increaseBoatCapacity()
     {
         float total = float.Parse(totalScoree.text);  
-        if(total >= increaseCapacityCost)
+        if(total >= increaseCapacityCost )
         {
             total = total - increaseCapacityCost;
 ;           //totalScoree.text = total.ToString();
@@ -128,8 +130,6 @@ public class UpgradeController : MonoBehaviour
 
             boatCapacity += 5;
         }
-
-        //Debug.Log("Total Score: "+ totalScoree.text + ". Kapasite arttýrýldý. Kapasite: " + boatCapacity);    
         PlayerPrefs.SetFloat("TotalScore", total);
         PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
     }
@@ -137,7 +137,7 @@ public class UpgradeController : MonoBehaviour
     public void multipleCatchUpgradeOn()
     {
         float total1 = float.Parse(totalScoree.text);
-        if(total1 >= increaseFishLimitCost)
+        if(total1 >= increaseFishLimitCost )
         {
             total1 = total1 - increaseFishLimitCost;
             //totalScoree.text = total1.ToString();
@@ -153,8 +153,6 @@ public class UpgradeController : MonoBehaviour
 
             multipleCatchisOn = true;
             PlayerPrefs.SetString("MultipleCatch", multipleCatchisOn.ToString());
-            //multipleCatchText.text = "Multiple Catch ON";
-            //MultipleCatchButton.interactable = false;
         }
     }
 
