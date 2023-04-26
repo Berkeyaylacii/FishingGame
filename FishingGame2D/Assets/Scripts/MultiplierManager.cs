@@ -1,7 +1,10 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class MultiplierManager : MonoBehaviour
 {
@@ -10,11 +13,14 @@ public class MultiplierManager : MonoBehaviour
 
     public GameObject[] Obstacles;
     public GameObject[] Sharks;
+    public GameObject FloatingText;
 
     public HookCollisions HookCollisions;
     public ObstacleColliders ObstacleColliders;
     public SharkOpenMouth SharkOpenMouth;
     public MenuManager MenuManager;
+
+    public TextMeshProUGUI multiplierText;
 
     private bool ifObstaclePassed = false;
     public float multiplier;
@@ -26,15 +32,16 @@ public class MultiplierManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.FindGameObjectWithTag("Obstacle") != null && MenuManager.isInGame == true )
+        if (GameObject.FindGameObjectWithTag("Obstacle") != null && MenuManager.isInGame == true )
         {
             GameObject nearestObstacle;
             nearestObstacle = FindNearestObstacle();
             float distanceOfNearObstacle = Vector3.Distance(this.transform.position, nearestObstacle.transform.position);
-
-            if(HookCollisions.ifHooked == true && distanceOfNearObstacle <1.5f && ObstacleColliders.hookedFish != null && ObstaclesPassed.Contains(nearestObstacle) != true )
+            if(HookCollisions.fishCount > 0 && distanceOfNearObstacle <1.5f && ObstacleColliders.hookedFish != null && ObstaclesPassed.Contains(nearestObstacle) != true )
             {
+                Debug.Log("Obje yakýn geçti !");
                 ObstaclesPassed.Add(nearestObstacle);
+                ShowFloatingText(nearestObstacle);
             }
 
            
@@ -46,26 +53,33 @@ public class MultiplierManager : MonoBehaviour
             nearestShark = FindNearestShark();
             float distanceOfNearShark = Vector3.Distance(this.transform.position, nearestShark.transform.position);
 
-            if (HookCollisions.ifHooked == true && distanceOfNearShark < 1.5f && ObstacleColliders.hookedFish != null && SharksPassed.Contains(nearestShark) != true)
+            if (HookCollisions.fishCount > 0 && distanceOfNearShark < 1.5f && ObstacleColliders.hookedFish != null && SharksPassed.Contains(nearestShark) != true)
             {
-                Debug.Log("Close call to shark !");
+                Debug.Log("Köpekbalýðý yakýn geçti !");
                 SharksPassed.Add(nearestShark);
+                ShowFloatingText(nearestShark);             
             }
         }
 
     }
 
-    void DetectObjectWhenHooked()
+    void ShowFloatingText(GameObject a)
     {
-        if(HookCollisions.ifHooked == true && FindNearestObstacle() && ObstacleColliders.Obstacles != null && ObstacleColliders.hookedFish != null)
-        {              
-            Debug.Log("Close call !");
-        }
+        GameObject textObj = Instantiate(FloatingText, a.transform.position, Quaternion.identity);
+        SetFloatingText();
+        multiplierText.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 1f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Restart);
+        Destroy(textObj, 1f);
+    }
 
-        if (HookCollisions.ifHooked == true && SharkOpenMouth.sharkDistancetoHook < 1.5f && SharkOpenMouth.shark != null)
-        {
-            Debug.Log("Close call to shark !");
-        }
+    void SetFloatingText()
+    {
+        float multiplier = 0;
+        multiplier = float.Parse(multiplierText.text);
+        multiplier += 0.1f;
+        multiplierText.text = multiplier.ToString();
+        Debug.Log(multiplier);
     }
 
     public GameObject FindNearestObstacle()

@@ -11,8 +11,8 @@ public class GameOverScreen : MonoBehaviour
     public ObstacleColliders ObstacleColliders;
 
     [SerializeField] public TextMeshProUGUI baitCount_txt;
-
     [SerializeField] public TextMeshProUGUI score;
+    [SerializeField] public TextMeshProUGUI multiplierText;
 
     public Camera mainCamera;
   
@@ -34,8 +34,7 @@ public class GameOverScreen : MonoBehaviour
             {
                 GameOverPanel.SetActive(false);
                 menuManager.isInGame = false;
-
-}
+            }
             else if(menuManager.isInMainMenu == true)
             {
                 GameOverPanel.SetActive(false);
@@ -46,6 +45,7 @@ public class GameOverScreen : MonoBehaviour
     public void RestartGame()  //If ad watched, give 1 more bait to play
     {
          Debug.Log("reklam izlendi 1 kere ve ödül verildi.");
+         multiplierText.text = "1";  //reset the multiplier
          baitCount_txt.text = "1";
 
          GameOverPanel.SetActive(false);

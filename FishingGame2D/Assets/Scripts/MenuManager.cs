@@ -33,6 +33,7 @@ public class MenuManager : MonoBehaviour
 
     public GameObject gameScoreGroup;
     public GameObject totalScoreGroup;
+    public GameObject multiplierGroup;
     
 
     [SerializeField] private TextMeshProUGUI tap_txt;
@@ -70,7 +71,6 @@ public class MenuManager : MonoBehaviour
 
     public int timesPlayed = 0;
     float time;
-    float boatCap;
     void Start()
     {        
         mainCamera = Camera.main;
@@ -93,6 +93,7 @@ public class MenuManager : MonoBehaviour
         howToPlayPanel.SetActive(false);
 
         gameScoreGroup.SetActive(false);
+        multiplierGroup.SetActive(false);
         totalScoreGroup.SetActive(true);
         
         baitCount_txt.SetText("3");
@@ -120,6 +121,7 @@ public class MenuManager : MonoBehaviour
             {                
                 isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
+                multiplierGroup.SetActive(true);
                 moveCamera = false;
                 time = 0;                    // Time set to 0 for Lerp to work correct way
             }
@@ -130,7 +132,8 @@ public class MenuManager : MonoBehaviour
         {   
             CollectScreen.isCapacityFull = false; // restart the capacity
 
-            gameScoreGroup.SetActive(false); 
+            gameScoreGroup.SetActive(false);
+            multiplierGroup.SetActive(false);
             time += Time.deltaTime * 0.6f;
             mainCamera.transform.position = Vector3.Lerp(targetPos, new Vector3(0, 8.5f, -10f), time);  
 
@@ -181,6 +184,7 @@ public class MenuManager : MonoBehaviour
             //mainMenuSound.Play();
             //gameSceneSound.Play();               //Plays main menu sound
             gameScoreGroup.SetActive(false);
+            multiplierGroup.SetActive(false);
             totalScoreGroup.SetActive(true);
 
             if ( (FishMovement.rightSpawns != null) && (FishMovement.leftSpawns != null) )   //Deletes gameScene object
@@ -325,6 +329,5 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1;
         fishSpawner.SetActive(true);
     }
-
 
 }

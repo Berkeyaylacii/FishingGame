@@ -27,8 +27,9 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI baitCount_txt;
 
-    [SerializeField] public TextMeshProUGUI score_txt;
-    [SerializeField] public TextMeshProUGUI scoreatPanel;
+    [SerializeField] public TextMeshProUGUI score_txt;   
+    [SerializeField] public TextMeshProUGUI scoreatPanel;  //To use in collect screen
+    [SerializeField] public TextMeshProUGUI multiplier_txt;
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
@@ -168,6 +169,7 @@ public class HookCollisions : MonoBehaviour
     public void resetPoint()
     {
         score_txt.text = reset.ToString();
+        multiplier_txt.text = "1";       
     }
 
     public void increaseTotalScore()
