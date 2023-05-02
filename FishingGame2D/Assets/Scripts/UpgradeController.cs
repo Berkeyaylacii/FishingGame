@@ -18,7 +18,7 @@ public class UpgradeController : MonoBehaviour
 
     /// for number inc-dec animation
     public TextMeshProUGUI testNumberText;
-    public float countDuration = 1;
+    public float countDuration = 1f;
     float currentValue;
     Coroutine Crt;
     public ParticleSystem particle;
@@ -39,7 +39,7 @@ public class UpgradeController : MonoBehaviour
     public bool isScoreIncreasing = false;
     void Start()
     {
-       //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         
         MultipleCatchButton = Upgrade2Panel.GetComponent<Button>();
 
@@ -59,7 +59,7 @@ public class UpgradeController : MonoBehaviour
             PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
         }
         else
-        {
+        {            
             increaseCapacityCost = PlayerPrefs.GetFloat("IncreaseCapacityCost");
         }
 
@@ -89,7 +89,7 @@ public class UpgradeController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {         
+    {
         boatCapacity = PlayerPrefs.GetFloat("BoatCapacity");
         fishLimit = PlayerPrefs.GetFloat("FishLimit");
         increaseFishLimitCost = PlayerPrefs.GetFloat("IncreaseFishLimitCost");
@@ -117,48 +117,60 @@ public class UpgradeController : MonoBehaviour
     }
 
     public void increaseBoatCapacity()
-    {
-        float total = float.Parse(totalScoree.text);  
-        if(total >= increaseCapacityCost )
+    {   
+        if(isScoreIncreasing == false) 
         {
-            total = total - increaseCapacityCost;
-;           //totalScoree.text = total.ToString();
-            DecreaseValue(increaseCapacityCost);   //animated number decrease
+            isScoreIncreasing = true;
+            float total = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
 
-            increaseCapacityCost += 15;
-            PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
+            if (total >= increaseCapacityCost)
+            {              
+                DecreaseValue(increaseCapacityCost);   //animated number decrease
+                total = total - increaseCapacityCost;
 
-            boatCapacity += 5;
-        }
-        PlayerPrefs.SetFloat("TotalScore", total);
-        PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
+                increaseCapacityCost = ( boatCapacity * (boatCapacity / 5) ) + boatCapacity;
+
+                PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
+
+                boatCapacity += 5;
+
+                PlayerPrefs.SetFloat("TotalScore", total);
+                PlayerPrefs.SetFloat("BoatCapacity", boatCapacity); //playerprefs kullanýmýný düzelt
+                //isScoreIncreasing = false;
+            }      
+        }       
     }
 
     public void multipleCatchUpgradeOn()
     {
-        float total1 = float.Parse(totalScoree.text);
-        if(total1 >= increaseFishLimitCost )
-        {
-            total1 = total1 - increaseFishLimitCost;
-            //totalScoree.text = total1.ToString();
-            DecreaseValue(increaseFishLimitCost);
+        if (isScoreIncreasing == false)
+        {   
+            isScoreIncreasing = true;
+            float total1 = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
+            if (total1 >= increaseFishLimitCost)
+            {
+                //totalScoree.text = total1.ToString();
+                DecreaseValue(increaseFishLimitCost);
 
-            PlayerPrefs.SetFloat("TotalScore", total1);
+                total1 = total1 - increaseFishLimitCost;
+                PlayerPrefs.SetFloat("TotalScore", total1);
 
-            increaseFishLimitCost += 15;
-            PlayerPrefs.SetFloat("IncreaseFishLimitCost", increaseFishLimitCost);
+                increaseFishLimitCost = (boatCapacity * (boatCapacity / 5)) + (2 * boatCapacity);
+                PlayerPrefs.SetFloat("IncreaseFishLimitCost", increaseFishLimitCost);
 
-            fishLimit += 1;
-            PlayerPrefs.SetFloat("FishLimit", fishLimit);
+                fishLimit += 1;
+                PlayerPrefs.SetFloat("FishLimit", fishLimit);
 
-            multipleCatchisOn = true;
-            PlayerPrefs.SetString("MultipleCatch", multipleCatchisOn.ToString());
-        }
+                multipleCatchisOn = true;
+                PlayerPrefs.SetString("MultipleCatch", multipleCatchisOn.ToString());  
+                //isScoreIncreasing = false;
+            }    
+        }     
     }
 
     IEnumerator CountTo(float value)  
     {
-        currentValue = float.Parse(totalScoree.text);   //current value set to Total value
+        currentValue = float.Parse( (totalScoree.text).Remove(0,1) );   //current value set to Total value, $ ICON REMOVED HERE
 
         value += currentValue;   
         var rate = Mathf.Abs(value - currentValue) / countDuration;
@@ -167,10 +179,11 @@ public class UpgradeController : MonoBehaviour
         {
             currentValue = Mathf.MoveTowards(currentValue, value, rate * Time.deltaTime);
  
-            totalScoree.text = ((int)currentValue).ToString();  //TMP text set to new value
+            totalScoree.text = (((int)currentValue).ToString()).Insert(0,"$");  //TMP text set to new value, $ ICON ADDED HERE
             yield return null;
         }
-        
+
+        isScoreIncreasing = false; 
     }    
     
     public void AddValue(float value)

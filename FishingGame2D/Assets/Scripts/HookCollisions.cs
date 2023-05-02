@@ -28,8 +28,8 @@ public class HookCollisions : MonoBehaviour
     [SerializeField] public TextMeshProUGUI baitCount_txt;
 
     [SerializeField] public TextMeshProUGUI score_txt;   
-    [SerializeField] public TextMeshProUGUI scoreatPanel;  //To use in collect screen
-    [SerializeField] public TextMeshProUGUI multiplier_txt;
+    [SerializeField] public TextMeshProUGUI scoreatPanel;  //To use in collect screen menu
+    [SerializeField] public TextMeshProUGUI multiplier_txt; //To show in collect screen menu
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
@@ -42,17 +42,20 @@ public class HookCollisions : MonoBehaviour
     public float reset = 0;
     public float fishCount = 0;
 
+    public float totalFishV1Count = 0;
+    public float totalFishV2Count = 0;
+
     public GameObject[] Fishes;
+
     void Start()
     {
-        total_score_txt.text = PlayerPrefs.GetFloat("TotalScore").ToString();
+        total_score_txt.text = (PlayerPrefs.GetFloat("TotalScore").ToString()).Insert(0,"$");  //$ ICON ADDED HERE
         hook.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (this.transform.position.y >= 3.9f)     //if fish is moved to boat position, to remove the fish from the hook
         {
             takeFishToBoat();
@@ -62,93 +65,22 @@ public class HookCollisions : MonoBehaviour
         {
             fishEatsBait();
         }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {   
-        
-        if (collision.gameObject.tag == "Fish"  && ifHooked == false && worm.activeSelf == true)  //Olta yemlikyen balýk yakalanýyor
-        {
-            fishCatchSound.Play();
-
-            if(UpgradeController.multipleCatchisOn == false)
-            {
-                ifHooked = true;
-            }
-           
-            
-            fishCount++;
-            //Debug.Log("toplam balýk: " + fishCount);
-
-            //colliderofHook.enabled = false;                                  //remove the collider of hook to catch fish only once
-            collision.gameObject.GetComponent<Collider2D>().enabled = false;
-            collision.gameObject.GetComponent<HingeJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-            collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
-            collision.gameObject.GetComponent<Rigidbody2D>().mass = 20f;
-            collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-
-            if (UpgradeController.multipleCatchisOn == false)
-            {
-                worm.gameObject.SetActive(false);     //disappear the worm
-            }
-                              
-            collision.transform.gameObject.tag = "HookedFish";   //change the fish tag to understand if fish is catched
-
-            if (collision.gameObject != null)
-            {
-
-            }
-
-            collision.transform.SetParent(GameObject.FindGameObjectWithTag("Hanger").transform, true);         //fish become parent of hook
-     
-            if (collision.transform.rotation.eulerAngles.y == 180)                    //
-            {
-                collision.transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(-0.3f, 0, 0);
-            }      
-            else if (collision.transform.rotation.eulerAngles.y == 0)
-            {
-                collision.transform.position = GameObject.FindGameObjectWithTag("Hanger").transform.position + new Vector3(0.3f, 0, 0);
-            }
-        }
-
-        /*if (collision.gameObject.tag == "Obstacle" && ifHooked == false && worm.activeSelf == true)   // Olta yemliyken objeye çarpýyor
-        {
-            wormDropSound.Play();             //worm hits obstacle
-            colliderofHook.enabled = false;
-            worm.gameObject.SetActive(false);
-            
-            float baitct = float.Parse(baitCount_txt.text);
-            if (baitct > 0 )
-            {
-                baitct = baitct - 1;
-                Debug.Log("Bait -1");
-                baitCount_txt.text = baitct.ToString();
-            }
-        }
-
-        if (collision.gameObject.tag == "Obstacle" && ifHooked == true && worm.activeSelf == false)         //Oltada balýk varken objeye çarpýyor
-        {
-            if (GameObject.FindGameObjectWithTag("HookedFish") != null)
-            {
-                Destroy(GameObject.FindGameObjectWithTag("HookedFish"));
-
-                float baitct = float.Parse(baitCount_txt.text);
-                    if (baitct > 0)
-                    {
-                        baitct = baitct - 1;
-                        Debug.Log("Balýk varken Yem düþtü -1");
-                        baitCount_txt.text = baitct.ToString();
-                        ifHooked = false;
-                    }
-            }
-        }*/
     }
 
     private void takeFishToBoat()
     {
         if (GameObject.FindGameObjectWithTag("HookedFish") != null)
         {
+            if (GameObject.FindGameObjectWithTag("HookedFish").name == "TestFish(Clone)")  //Fishv1 count at collect menu
+            {
+                totalFishV1Count += 1;
+            }
+
+            if (GameObject.FindGameObjectWithTag("HookedFish").name == "FishV2(Clone)")  //Fishv2 count at collect menu
+            {
+                totalFishV2Count += 1;
+            }
+
             Destroy(GameObject.FindGameObjectWithTag("HookedFish"));
             increasePoint();
         }     
@@ -173,37 +105,63 @@ public class HookCollisions : MonoBehaviour
     }
 
     public void increaseTotalScore()
-    {
-        float totalScore = float.Parse(total_score_txt.text);
-        float score = float.Parse(scoreatPanel.text);  
-        totalScore += score;
+    {   
+        if(UpgradeController.isScoreIncreasing == false)
+        {   
+            UpgradeController.isScoreIncreasing = true;
 
-        particle.Play();
-        UpgradeController.AddValue(score);   //increaseAnimation
-        score = 0;    //reset
-        scoreatPanel.text = score.ToString();  //reset           
-        //total_score_txt.text = totalScore.ToString();
+            float totalScore =  float.Parse( (total_score_txt.text.ToString()).Remove(0,1) );  //$ ICON REMOVED HERE
+            Debug.Log("Total Score: "+totalScore);
+            float score = float.Parse(scoreatPanel.text);  
+            totalScore += score;
+            Debug.Log("Total Score sonra: " + totalScore);
+            particle.Play();
+            UpgradeController.AddValue(score);   //increaseAnimation
 
-        PlayerPrefs.SetFloat("TotalScore", totalScore);
+            resetFishSpeciesCount(); //reset fish species count
+            score = 0;    //reset
+            scoreatPanel.text = score.ToString();  //reset           
+            //total_score_txt.text = totalScore.ToString();
 
-        MenuManager.collectPanel.SetActive(false);  //close the collectpanel
+            PlayerPrefs.SetFloat("TotalScore", totalScore);
+
+            MenuManager.collectPanel.SetActive(false);  //close the collect panel
+        }
     }
 
     public void increaseTotalScore2x()
     {
-        float totalScore = float.Parse(total_score_txt.text);
-        float score = float.Parse(scoreatPanel.text);  
-        totalScore += 2*score;
+        if (UpgradeController.isScoreIncreasing == false)
+        {
+            UpgradeController.isScoreIncreasing = true;
 
-        particle.Play();
-        UpgradeController.AddValue(2*score);   //increase animation
-        score = 0;
-        scoreatPanel.text = score.ToString();
-        //total_score_txt.text = totalScore.ToString();
+            float totalScore = float.Parse( (total_score_txt.text.ToString()).Remove(0,1) );  //$ ICON REMOVED HERE
+            Debug.Log("Total Score: " + totalScore);
+            float score = float.Parse(scoreatPanel.text);
+            totalScore += 2 * score;
+            Debug.Log("Total Score sonra: " + totalScore);
 
-        PlayerPrefs.SetFloat("TotalScore", totalScore);
+            particle.Play();
+            UpgradeController.AddValue(2 * score);   //increase animation
 
-        MenuManager.collectPanel.SetActive(false);  //close the collectpanel
+            resetFishSpeciesCount(); //reset fishs species count
+            score = 0;
+            scoreatPanel.text = score.ToString();
+            //total_score_txt.text = totalScore.ToString();
+
+            PlayerPrefs.SetFloat("TotalScore", totalScore);
+
+            MenuManager.collectPanel.SetActive(false);  //close the collectpanel
+
+            //UpgradeController.isScoreIncreasing = false;
+        }
+    }
+
+
+    public void resetFishSpeciesCount()  //To reset fish species count
+    {   
+        totalFishV1Count = 0;
+        totalFishV2Count = 0;      
     }
 
     public void fishEatsBait()
@@ -218,6 +176,7 @@ public class HookCollisions : MonoBehaviour
                 fishCatchSound.Play();
                 fis.GetComponent<ParticleSystem>().Clear();
                 fis.GetComponent<ParticleSystem>().enableEmission = false; //Deactivate the bubble particles
+
                 fis.transform.gameObject.tag = "HookedFish";
                 if (UpgradeController.multipleCatchisOn == false)
                 {
@@ -255,4 +214,17 @@ public class HookCollisions : MonoBehaviour
         }
     }
 
+    public string remove1stSymbolfromString(string a)
+    {
+        a.Remove(0, 1);
+        return a;
+    }
+
+    public string addSymboltoString(string a)
+    {
+        string sym = "$";
+        a.Insert(0, sym);
+
+        return a;
+    }
 }

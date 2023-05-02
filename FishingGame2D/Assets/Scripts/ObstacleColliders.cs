@@ -19,6 +19,7 @@ public class ObstacleColliders : MonoBehaviour
 
     [SerializeField] private AudioSource wormDropSound;
     public TextMeshProUGUI baitCount_txt;
+    public TextMeshProUGUI multiplier_txt;
 
     public bool decreseaBaitOnce = false;
     public float distanceOfNearObstacle = 0;
@@ -52,6 +53,7 @@ public class ObstacleColliders : MonoBehaviour
                         wormDropSound.Play();                  //worm drop sound
                         obstacleHitParticle = closestObstacle.GetComponent<ParticleSystem>();
                         obstacleHitParticle.Play();
+                        multiplier_txt.text = "1";  //reset to 1 when hit object
 
                         float baitct = float.Parse(baitCount_txt.text);
                         if (baitct > 0)

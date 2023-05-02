@@ -26,7 +26,6 @@ public class SharkOpenMouth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-
         if (GameObject.FindGameObjectWithTag("Hook") != null && GameObject.FindGameObjectWithTag("Shark") != null ) //Shark opens mouth
         {
             //hook = GameObject.FindGameObjectWithTag("Hook");

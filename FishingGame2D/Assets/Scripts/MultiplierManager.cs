@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using DG.Tweening;
 
 public class MultiplierManager : MonoBehaviour
 {
@@ -63,13 +62,10 @@ public class MultiplierManager : MonoBehaviour
 
     }
 
-    void ShowFloatingText(GameObject a)
+    void ShowFloatingText(GameObject a)  //This shows text like "Close call !" when hook cross near obstacle, critic 
     {
         GameObject textObj = Instantiate(FloatingText, a.transform.position, Quaternion.identity);
         SetFloatingText();
-        multiplierText.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 1f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Restart);
         Destroy(textObj, 1f);
     }
 

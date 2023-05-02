@@ -20,10 +20,7 @@ public class AdRewards : MonoBehaviour
 
     public void Give2xPoint()
     {
-        Debug.Log("buraya girdi");
-        //MenuManager.ReturnMainMenu2xCollect();
         HookCollisions.increaseTotalScore2x();
     }
     
-
 }
