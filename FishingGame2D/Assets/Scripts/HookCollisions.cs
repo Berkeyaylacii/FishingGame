@@ -29,12 +29,16 @@ public class HookCollisions : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI score_txt;   
     [SerializeField] public TextMeshProUGUI scoreatPanel;  //To use in collect screen menu
-    [SerializeField] public TextMeshProUGUI multiplier_txt; //To show in collect screen menu
+    [SerializeField] public TextMeshProUGUI multiplier_txt; //To show in ame screen menu
 
     [SerializeField] public TextMeshProUGUI total_score_txt;
 
     [SerializeField] public AudioSource fishCatchSound;
     [SerializeField] public AudioSource wormDropSound;
+
+    public GameObject FishV1Group;
+    public GameObject FishV2Group;
+    public GameObject FishV3Group;
 
     public ParticleSystem particle;
 
@@ -44,6 +48,7 @@ public class HookCollisions : MonoBehaviour
 
     public float totalFishV1Count = 0;
     public float totalFishV2Count = 0;
+    public float totalFishV3Count = 0;
 
     public GameObject[] Fishes;
 
@@ -81,10 +86,15 @@ public class HookCollisions : MonoBehaviour
                 totalFishV2Count += 1;
             }
 
+            if(GameObject.FindGameObjectWithTag("HookedFish").name =="Fishv3(Clone)")
+            {
+                totalFishV3Count += 1;
+            }
+
             Destroy(GameObject.FindGameObjectWithTag("HookedFish"));
             increasePoint();
         }     
-        colliderofHook.enabled = true;
+        //colliderofHook.enabled = true;
         worm.gameObject.SetActive(true); 
         ifHooked = false;
         ObstacleColliders.decreseaBaitOnce = false;
@@ -111,10 +121,10 @@ public class HookCollisions : MonoBehaviour
             UpgradeController.isScoreIncreasing = true;
 
             float totalScore =  float.Parse( (total_score_txt.text.ToString()).Remove(0,1) );  //$ ICON REMOVED HERE
-            Debug.Log("Total Score: "+totalScore);
-            float score = float.Parse(scoreatPanel.text);  
+            //Debug.Log(MenuManager.multiplierEarned+" önce");
+            float score = float.Parse(scoreatPanel.text.Remove(0,1));   //$ icon removed from score
             totalScore += score;
-            Debug.Log("Total Score sonra: " + totalScore);
+
             particle.Play();
             UpgradeController.AddValue(score);   //increaseAnimation
 
@@ -126,6 +136,12 @@ public class HookCollisions : MonoBehaviour
             PlayerPrefs.SetFloat("TotalScore", totalScore);
 
             MenuManager.collectPanel.SetActive(false);  //close the collect panel
+            MenuManager.multiplierEarned = 1;
+            //Debug.Log("sonra: " + MenuManager.multiplierEarned);
+
+            FishV1Group.SetActive(false);
+            FishV2Group.SetActive(false);
+            FishV3Group.SetActive(false);
         }
     }
 
@@ -136,10 +152,8 @@ public class HookCollisions : MonoBehaviour
             UpgradeController.isScoreIncreasing = true;
 
             float totalScore = float.Parse( (total_score_txt.text.ToString()).Remove(0,1) );  //$ ICON REMOVED HERE
-            Debug.Log("Total Score: " + totalScore);
-            float score = float.Parse(scoreatPanel.text);
+            float score = float.Parse(scoreatPanel.text.Remove(0,1));  // $ icon removed from score
             totalScore += 2 * score;
-            Debug.Log("Total Score sonra: " + totalScore);
 
             particle.Play();
             UpgradeController.AddValue(2 * score);   //increase animation
@@ -152,6 +166,12 @@ public class HookCollisions : MonoBehaviour
             PlayerPrefs.SetFloat("TotalScore", totalScore);
 
             MenuManager.collectPanel.SetActive(false);  //close the collectpanel
+            MenuManager.multiplierEarned = 1;
+            //Debug.Log("sonra: " + MenuManager.multiplierEarned);
+
+            FishV1Group.SetActive(false);  
+            FishV2Group.SetActive(false);
+            FishV3Group.SetActive(false);
 
             //UpgradeController.isScoreIncreasing = false;
         }
@@ -161,7 +181,8 @@ public class HookCollisions : MonoBehaviour
     public void resetFishSpeciesCount()  //To reset fish species count
     {   
         totalFishV1Count = 0;
-        totalFishV2Count = 0;      
+        totalFishV2Count = 0;
+        totalFishV3Count = 0;
     }
 
     public void fishEatsBait()

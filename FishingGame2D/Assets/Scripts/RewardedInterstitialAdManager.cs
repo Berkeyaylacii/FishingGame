@@ -9,7 +9,7 @@ public class RewardedInterstitialAdManager : MonoBehaviour
 {
     // These ad units are configured to always serve test ads.
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/5354046379";  //ca-app-pub-3982814711633983/7285885422 test:	ca-app-pub-3940256099942544/5354046379
+    private string _adUnitId = "ca-app-pub-3982814711633983/7285885422";  //ca-app-pub-3982814711633983/7285885422 test:	ca-app-pub-3940256099942544/5354046379
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/6978759866";
 #else

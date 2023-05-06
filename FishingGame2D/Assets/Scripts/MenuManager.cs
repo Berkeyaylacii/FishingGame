@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI baitCount_txt;
     [SerializeField] private TextMeshProUGUI boatCapacity_txt;
     [SerializeField] private TextMeshProUGUI currentCapacity;
-    [SerializeField] private TextMeshProUGUI increaseCapacityCostText;
+    [SerializeField] private TextMeshProUGUI increaseCapacityCostText;  //Upgrade 1 Panel Price Text
 
     [SerializeField] private TextMeshProUGUI gameScoreAtPanel;    //These are on collect screen
     [SerializeField] private TextMeshProUGUI multiplierScoreAtPanel;  //These are on collect screen
@@ -49,12 +49,13 @@ public class MenuManager : MonoBehaviour
 
     public GameObject fishV1Group;
     public GameObject fishV2Group;
+    public GameObject fishV3Group;
 
     public Button collectButton;
     public Button collect2xButton;
 
     [SerializeField] private TextMeshProUGUI fishLimit;
-    [SerializeField] private TextMeshProUGUI increaseFishLimitCost;
+    [SerializeField] private TextMeshProUGUI increaseFishLimitCost;  //Upgrade 2 Panel Price Text
 
 
     [SerializeField] private GameObject hand_icon;
@@ -76,7 +77,9 @@ public class MenuManager : MonoBehaviour
     Vector3 targetPos;
 
     public int timesPlayed = 0;
-    float time;
+    float timee;
+
+    public float multiplierEarned = 1;
 
     public bool showFishv1onMenu= false;
     public bool showFishv2onMenu = false;
@@ -88,7 +91,7 @@ public class MenuManager : MonoBehaviour
         mainCamera = Camera.main;
 
         startPos = mainCamera.transform.position;
-        targetPos = new Vector3(0, 1.15f, -10);
+        targetPos = new Vector3(0, 1.15f, -10); // 0, 1.15f, -10
 
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
@@ -113,33 +116,30 @@ public class MenuManager : MonoBehaviour
          
         tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
         hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
-
-        InvokeRepeating("showFishV1Group", 0.5f, 0.5f);
-        InvokeRepeating("showFishV2Group", 1.8f, 1.8f);
-        InvokeRepeating("showFishV3Group", 2.3f, 2.3f);
+      
     }
 
     private void Update()
     {
         boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
         currentCapacity.SetText(PlayerPrefs.GetFloat("BoatCapacity").ToString());
-        increaseCapacityCostText.SetText( (PlayerPrefs.GetFloat("IncreaseCapacityCost").ToString()) );
+        increaseCapacityCostText.SetText( (PlayerPrefs.GetFloat("IncreaseCapacityCost").ToString()).Insert(0,"$") );  // $ ICON ADDED TO INCREASE CAPACITY COST TEXT
         fishLimit.SetText(PlayerPrefs.GetFloat("FishLimit").ToString());
-        increaseFishLimitCost.SetText(PlayerPrefs.GetFloat("IncreaseFishLimitCost").ToString());
+        increaseFishLimitCost.SetText( (PlayerPrefs.GetFloat("IncreaseFishLimitCost").ToString()).Insert(0, "$"));    // $ ICON ADDED TO INCREASE FISH LIMIT COST TEXT
 
         if (moveCamera != false)             //Moves camera smoothly Game Scene, and Game Starts !
         {
             //Debug.Log(moveCamera);           
             totalScoreGroup.SetActive(false);
-            time += Time.deltaTime * 0.6f;
-            mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, time); 
+            timee += Time.deltaTime * 0.6f;
+            mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, timee); 
             if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
             {                
                 isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
                 multiplierGroup.SetActive(true);
                 moveCamera = false;
-                time = 0;                    // Time set to 0 for Lerp to work correct way
+                timee = 0;                    // Time set to 0 for Lerp to work correct way
             }
             
         }
@@ -150,17 +150,29 @@ public class MenuManager : MonoBehaviour
          
             gameScoreGroup.SetActive(false);
             multiplierGroup.SetActive(false);
-            time += Time.deltaTime * 0.6f;
-            mainCamera.transform.position = Vector3.Lerp(targetPos, new Vector3(0, 8.5f, -10f), time);  
+            timee += Time.deltaTime * 0.6f;
+            mainCamera.transform.position = Vector3.Lerp(targetPos, new Vector3(0, 8.5f, -10f), timee);  
 
             if (mainCamera.transform.position == new Vector3(0, 8.5f, -10f))
             {
                 //fishV1Group.SetActive(true);   //FÝSHV1 GROUP AT COLLECT PANEL              
-                showFishv1onMenu = true;
-                 //fishV2Group.SetActive(true);
-               
+                //showFishv1onMenu = true;
+                if(HookCollisions.totalFishV1Count > 0)        //Activate the collect screen fish anims
+                {
+                    fishV1Group.SetActive(true);
+                }
+                if (HookCollisions.totalFishV2Count > 0)
+                {
+                    fishV2Group.SetActive(true);
+                }
+                if (HookCollisions.totalFishV3Count > 0)
+                {
+                    fishV3Group.SetActive(true);
+                }
+                //fishV2Group.SetActive(true);
+
                 moveCameraToMenu = false;
-                time = 0;                 //Time set to 0 for Lerp to work correct way
+                timee = 0;                 //Time set to 0 for Lerp to work correct way
                 isInMainMenu = true;      //flag to use hide gameover panel on another script                
 
                 hook.SetActive(false);    //Deactive all necessery object to return the Main Menu
@@ -269,8 +281,10 @@ public class MenuManager : MonoBehaviour
         collectPanel.SetActive(true);  
         gameOverPanel.SetActive(false);
 
-        gameScoreAtPanel.text = HookCollisions.score_txt.text;            //These are on collect menu
-        multiplierScoreAtPanel.text = HookCollisions.multiplier_txt.text; //These are on collect menu
+        multiplierEarned = float.Parse(HookCollisions.multiplier_txt.text);
+        gameScoreAtPanel.text =  Mathf.Round(float.Parse(HookCollisions.score_txt.text) * multiplierEarned).ToString().Insert(0,"$");            //These are on collect menu, number rounded
+        //multiplierScoreAtPanel.text = HookCollisions.multiplier_txt.text; //These are on collect menu
+        
         fishesV1TextAtPanel.text = "x" + HookCollisions.totalFishV1Count;      //These are on collect menu
         fishesV2TextAtPanel.text = "x" + HookCollisions.totalFishV2Count;
 
@@ -284,7 +298,6 @@ public class MenuManager : MonoBehaviour
         mainCamera.GetComponent<LineRenderer>().enabled = false;
         moveCameraToMenu = true;       
     }     
-
 
     public void ReturnMainMenuWithout()
     {
@@ -324,54 +337,6 @@ public class MenuManager : MonoBehaviour
         //ifCollect = true;
         //ifCollect2x = true;
         moveCameraToMenu = true;
-    }
-
-    IEnumerator MyCoroutine()
-    {
-            yield return new WaitForSeconds(2);
-            Debug.Log("girdiiii");
-            fishV1Group.SetActive(true);         
-    }
-
-    public void showFishV1Group()
-    {   
-        if(showFishv1onMenu == true)
-        {   
-            Debug.Log("girdiiii fishv1");
-            fishV1Group.SetActive(true);
-
-            showFishv1onMenu = false;
-            showFishv2onMenu = true;        
-        }        
-    }
-
-    public void showFishV2Group()
-    {   
-        fishV1Group.SetActive(false);
-
-        if (showFishv2onMenu == true && HookCollisions.totalFishV2Count > 0)
-        {
-            Debug.Log("girdiiii fishv2");           
-            fishV2Group.SetActive(true);
-
-            showFishv2onMenu = false;
-            showFishv3onMenu = true;
-        }
-
-
-    }
-
-    public void showFishV3Group()
-    {
-        fishV2Group.SetActive(false);
-
-        /*if (showFishv2onMenu == true && HookCollisions.totalFishV2Count > 0)
-        {
-            Debug.Log("girdiiii fishv2");
-            fishV2Group.SetActive(true);
-
-            showFishv2onMenu = false;
-        }*/
     }
 
     public void openSettings()

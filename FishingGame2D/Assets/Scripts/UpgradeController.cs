@@ -76,7 +76,7 @@ public class UpgradeController : MonoBehaviour
 
         if (PlayerPrefs.GetFloat("IncreaseFishLimitCost") == 0)
         {
-            increaseFishLimitCost = 15;   //Terkar 100 olacak
+            increaseFishLimitCost = 25;   
             PlayerPrefs.SetFloat("IncreaseFishLimitCost", increaseFishLimitCost);
         }
         else
@@ -118,17 +118,17 @@ public class UpgradeController : MonoBehaviour
 
     public void increaseBoatCapacity()
     {   
-        if(isScoreIncreasing == false) 
+        float total = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
+        if(isScoreIncreasing == false && total >= increaseCapacityCost) 
         {
             isScoreIncreasing = true;
-            float total = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
-
+            
             if (total >= increaseCapacityCost)
             {              
                 DecreaseValue(increaseCapacityCost);   //animated number decrease
                 total = total - increaseCapacityCost;
 
-                increaseCapacityCost = ( boatCapacity * (boatCapacity / 5) ) + boatCapacity;
+                increaseCapacityCost = ( boatCapacity * (boatCapacity / 5) ) + (2 * boatCapacity);
 
                 PlayerPrefs.SetFloat("IncreaseCapacityCost", increaseCapacityCost);
 
@@ -142,11 +142,12 @@ public class UpgradeController : MonoBehaviour
     }
 
     public void multipleCatchUpgradeOn()
-    {
-        if (isScoreIncreasing == false)
+    {   
+        float total1 = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
+        if (isScoreIncreasing == false && total1 >= increaseFishLimitCost)
         {   
             isScoreIncreasing = true;
-            float total1 = float.Parse( (totalScoree.text).Remove(0,1) );   // $ ICON REMOVED HERE
+            
             if (total1 >= increaseFishLimitCost)
             {
                 //totalScoree.text = total1.ToString();
@@ -155,7 +156,7 @@ public class UpgradeController : MonoBehaviour
                 total1 = total1 - increaseFishLimitCost;
                 PlayerPrefs.SetFloat("TotalScore", total1);
 
-                increaseFishLimitCost = (boatCapacity * (boatCapacity / 5)) + (2 * boatCapacity);
+                increaseFishLimitCost = (boatCapacity * (boatCapacity / 5)) + (3 * boatCapacity);
                 PlayerPrefs.SetFloat("IncreaseFishLimitCost", increaseFishLimitCost);
 
                 fishLimit += 1;
@@ -177,7 +178,7 @@ public class UpgradeController : MonoBehaviour
 
         while (currentValue != value)
         {
-            currentValue = Mathf.MoveTowards(currentValue, value, rate * Time.deltaTime);
+            currentValue = Mathf.MoveTowards(currentValue, value, 1.5f * rate * Time.deltaTime);
  
             totalScoree.text = (((int)currentValue).ToString()).Insert(0,"$");  //TMP text set to new value, $ ICON ADDED HERE
             yield return null;
