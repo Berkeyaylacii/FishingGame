@@ -39,6 +39,9 @@ public class HookCollisions : MonoBehaviour
     public GameObject FishV1Group;
     public GameObject FishV2Group;
     public GameObject FishV3Group;
+    public GameObject FishV4Group;
+    public GameObject FishV5Group;
+    public GameObject FishV6Group;
 
     public ParticleSystem particle;
 
@@ -49,6 +52,9 @@ public class HookCollisions : MonoBehaviour
     public float totalFishV1Count = 0;
     public float totalFishV2Count = 0;
     public float totalFishV3Count = 0;
+    public float totalFishV4Count = 0;
+    public float totalFishV5Count = 0;
+    public float totalFishV6Count = 0;
 
     public GameObject[] Fishes;
 
@@ -86,9 +92,24 @@ public class HookCollisions : MonoBehaviour
                 totalFishV2Count += 1;
             }
 
-            if(GameObject.FindGameObjectWithTag("HookedFish").name =="Fishv3(Clone)")
+            if(GameObject.FindGameObjectWithTag("HookedFish").name =="FishV3(Clone)")
             {
                 totalFishV3Count += 1;
+            }
+
+            if (GameObject.FindGameObjectWithTag("HookedFish").name == "FishV4(Clone)")
+            {
+                totalFishV4Count += 1;
+            }
+
+            if (GameObject.FindGameObjectWithTag("HookedFish").name == "FishV5(Clone)")
+            {
+                totalFishV5Count += 1;
+            }
+
+            if (GameObject.FindGameObjectWithTag("HookedFish").name == "FishV6(Clone)")
+            {
+                totalFishV6Count += 1;
             }
 
             Destroy(GameObject.FindGameObjectWithTag("HookedFish"));
@@ -142,6 +163,9 @@ public class HookCollisions : MonoBehaviour
             FishV1Group.SetActive(false);
             FishV2Group.SetActive(false);
             FishV3Group.SetActive(false);
+            FishV4Group.SetActive(false);
+            FishV5Group.SetActive(false);
+            FishV6Group.SetActive(false);
         }
     }
 
@@ -172,6 +196,9 @@ public class HookCollisions : MonoBehaviour
             FishV1Group.SetActive(false);  
             FishV2Group.SetActive(false);
             FishV3Group.SetActive(false);
+            FishV4Group.SetActive(false);
+            FishV5Group.SetActive(false);
+            FishV6Group.SetActive(false);
 
             //UpgradeController.isScoreIncreasing = false;
         }
@@ -183,6 +210,9 @@ public class HookCollisions : MonoBehaviour
         totalFishV1Count = 0;
         totalFishV2Count = 0;
         totalFishV3Count = 0;
+        totalFishV4Count = 0;
+        totalFishV5Count = 0;
+        totalFishV6Count = 0;
     }
 
     public void fishEatsBait()

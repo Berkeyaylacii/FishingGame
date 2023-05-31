@@ -34,7 +34,7 @@ public class SharkOpenMouth : MonoBehaviour
             //GameObject closestHookedFish = null;
             //closestHookedFish = FindNearestHookedFish();
             sharkDistancetoHook = Vector3.Distance(shark.transform.position, hook.transform.position);
-            if(sharkDistancetoHook < 1.5f)
+            if(sharkDistancetoHook < 1.9f)
             {
                 image.sprite = sharkOM;
                 if(sharkDistancetoHook < 0.7f)

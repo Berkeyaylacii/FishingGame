@@ -12,6 +12,9 @@ public class FishMovement : MonoBehaviour
     [SerializeField] GameObject Fish;
     [SerializeField] GameObject Fishv2;
     [SerializeField] GameObject Fishv3;
+    [SerializeField] GameObject Fishv4;
+    [SerializeField] GameObject Fishv5;
+    [SerializeField] GameObject Fishv6;
     [SerializeField] GameObject Shark;
 
     public List<GameObject> fishSpecies = new List<GameObject>();
@@ -42,6 +45,19 @@ public class FishMovement : MonoBehaviour
         //Level 3 fish spawners
         InvokeRepeating("CreateFishLevel3Right", 8f, 10f);
         InvokeRepeating("CreateFishLevel3Left", 4f, 15f);
+
+        //Level 4 fish spawners
+        InvokeRepeating("CreateFishLevel4Right", 8f, 10f);
+        InvokeRepeating("CreateFishLevel4Left", 4f, 15f);
+
+        //Level 5 fish spawners
+        InvokeRepeating("CreateFishLevel5Right", 8f, 10f);
+        InvokeRepeating("CreateFishLevel5Left", 4f, 15f);
+
+        //Level 6 fish spawners
+        InvokeRepeating("CreateFishLevel6Right", 8f, 10f);
+        InvokeRepeating("CreateFishLevel6Left", 4f, 15f);
+
         //Level 3 shark spawner
         InvokeRepeating("CreateSharkRight", 15f, 20f);
 
@@ -110,9 +126,6 @@ public class FishMovement : MonoBehaviour
             }
         }      
 
-
-
-
     }
    
     void CreateFishRight() //Fish level 1
@@ -142,6 +155,30 @@ public class FishMovement : MonoBehaviour
             rightSpawns.Add(newFish);
         }
     }
+    void CreateFishLevel4Right()   //Fish level 4
+    {
+        if (maxFishCapacity > 30 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv4, new Vector3(-5, Random.Range(2f, -2f), 0), Quaternion.Euler(180, 0, 180));
+            rightSpawns.Add(newFish);
+        }
+    }
+    void CreateFishLevel5Right()   //Fish level 5
+    {
+        if (maxFishCapacity > 40 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv5, new Vector3(-5, Random.Range(2f, -2f), 0), Quaternion.Euler(180, 0, 180));
+            rightSpawns.Add(newFish);
+        }
+    }
+    void CreateFishLevel6Right()   //Fish level 6
+    {
+        if (maxFishCapacity > 50 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv6, new Vector3(-5, Random.Range(2f, -2f), 0), Quaternion.Euler(180, 0, 180));
+            rightSpawns.Add(newFish);
+        }
+    }
 
     void CreateSharkRight()     //Create Shark 
     {   
@@ -150,9 +187,9 @@ public class FishMovement : MonoBehaviour
             GameObject newFish = Instantiate(Shark, new Vector3(-5, Random.Range(2f, -2f), 0), Quaternion.Euler(180, 0, 180));
             rightSpawns.Add(newFish);
         }
+        
 
     }
-
     void CreateObstacleRight()
     {
         if (MenuManager.isInGame == true)
@@ -189,7 +226,7 @@ public class FishMovement : MonoBehaviour
         }
     }
 
-    void CreateFishLevel3Left()    //Fish level 333
+    void CreateFishLevel3Left()    //Fish level 3
     {
         if (maxFishCapacity > 25 && MenuManager.isInGame == true)
         {
@@ -198,4 +235,30 @@ public class FishMovement : MonoBehaviour
         }
     }
 
+    void CreateFishLevel4Left()    //Fish level 4
+    {
+        if (maxFishCapacity > 30 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv4, new Vector3(5, Random.Range(2f, -2f), 0), Quaternion.Euler(0, 0, 0));
+            leftSpawns.Add(newFish);
+        }
+    }
+
+    void CreateFishLevel5Left()    //Fish level 5
+    {
+        if (maxFishCapacity > 40 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv5, new Vector3(5, Random.Range(2f, -2f), 0), Quaternion.Euler(0, 0, 0));
+            leftSpawns.Add(newFish);
+        }
+    }
+
+    void CreateFishLevel6Left()    //Fish level 5
+    {
+        if (maxFishCapacity > 50 && MenuManager.isInGame == true)
+        {
+            GameObject newFish = Instantiate(Fishv6, new Vector3(5, Random.Range(2f, -2f), 0), Quaternion.Euler(0, 0, 0));
+            leftSpawns.Add(newFish);
+        }
+    }
 }

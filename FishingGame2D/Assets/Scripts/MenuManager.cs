@@ -44,12 +44,20 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI gameScoreAtPanel;    //These are on collect screen
     [SerializeField] private TextMeshProUGUI multiplierScoreAtPanel;  //These are on collect screen
+
     [SerializeField] private TextMeshProUGUI fishesV1TextAtPanel;  //These are on collect screen
     [SerializeField] private TextMeshProUGUI fishesV2TextAtPanel;  //These are on collect screen
+    [SerializeField] private TextMeshProUGUI fishesV3TextAtPanel;  //These are on collect screen
+    [SerializeField] private TextMeshProUGUI fishesV4TextAtPanel;  //These are on collect screen
+    [SerializeField] private TextMeshProUGUI fishesV5TextAtPanel;  //These are on collect screen
+    [SerializeField] private TextMeshProUGUI fishesV6TextAtPanel;  //These are on collect screen
 
     public GameObject fishV1Group;
     public GameObject fishV2Group;
     public GameObject fishV3Group;
+    public GameObject fishV4Group;
+    public GameObject fishV5Group;
+    public GameObject fishV6Group;
 
     public Button collectButton;
     public Button collect2xButton;
@@ -91,7 +99,7 @@ public class MenuManager : MonoBehaviour
         mainCamera = Camera.main;
 
         startPos = mainCamera.transform.position;
-        targetPos = new Vector3(0, 1.15f, -10); // 0, 1.15f, -10
+        targetPos = new Vector3(0, 1.15f, -10f); // 0, 1.15f, -10 eskiiiiiiii
 
         hook = GameObject.FindGameObjectWithTag("Hook");
         hand = GameObject.FindGameObjectWithTag("Hand");
@@ -111,12 +119,11 @@ public class MenuManager : MonoBehaviour
         multiplierGroup.SetActive(false);
         totalScoreGroup.SetActive(true);
         
-        baitCount_txt.SetText("3");
+        baitCount_txt.SetText("1");  //3 ÝDÝ
         //boatCapacity_txt.SetText((UpgradeController.boatCapacity).ToString());
          
         tap_txt.transform.DOScale(2f, 0.7f).SetLoops(10000, LoopType.Yoyo).SetEase(Ease.InOutFlash);                                                 //Text scale animation
-        hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation
-      
+        hand_icon.GetComponent<RectTransform>().DOAnchorPos(new Vector2(-200f, -100f), 1f).SetLoops(100000, LoopType.Yoyo).SetEase(Ease.InOutFlash);   //Hand icon animation      
     }
 
     private void Update()
@@ -132,16 +139,16 @@ public class MenuManager : MonoBehaviour
             //Debug.Log(moveCamera);           
             totalScoreGroup.SetActive(false);
             timee += Time.deltaTime * 0.6f;
-            mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, timee); 
-            if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))
+            mainCamera.transform.position = Vector3.Lerp(startPos, targetPos, timee);
+
+            if(mainCamera.transform.position == new Vector3(0, 1.15f, -10f))  
             {                
                 isInGame = true;    //if game is on 
                 gameScoreGroup.SetActive(true);
                 multiplierGroup.SetActive(true);
                 moveCamera = false;
-                timee = 0;                    // Time set to 0 for Lerp to work correct way
-            }
-            
+                timee = 0;                    
+            }           
         }
 
         if (moveCameraToMenu != false)       //Moves camera smoothly Game Scene -> Main Menu
@@ -155,8 +162,7 @@ public class MenuManager : MonoBehaviour
 
             if (mainCamera.transform.position == new Vector3(0, 8.5f, -10f))
             {
-                //fishV1Group.SetActive(true);   //FÝSHV1 GROUP AT COLLECT PANEL              
-                //showFishv1onMenu = true;
+
                 if(HookCollisions.totalFishV1Count > 0)        //Activate the collect screen fish anims
                 {
                     fishV1Group.SetActive(true);
@@ -169,7 +175,19 @@ public class MenuManager : MonoBehaviour
                 {
                     fishV3Group.SetActive(true);
                 }
-                //fishV2Group.SetActive(true);
+                if (HookCollisions.totalFishV4Count > 0)
+                {
+                    fishV4Group.SetActive(true);
+                }
+                if (HookCollisions.totalFishV5Count > 0)
+                {
+                    fishV5Group.SetActive(true);
+                }
+                if (HookCollisions.totalFishV6Count > 0)
+                {
+                    fishV6Group.SetActive(true);
+                }
+
 
                 moveCameraToMenu = false;
                 timee = 0;                 //Time set to 0 for Lerp to work correct way
@@ -257,7 +275,7 @@ public class MenuManager : MonoBehaviour
         mainCamera.GetComponent<LineRenderer>().enabled = true ;     //Active all necessery object to start the game
 
         gameSceneSound.Play();
-        baitCount_txt.SetText("3");
+        baitCount_txt.SetText("1");
         hook.SetActive(true);
         hand.SetActive(false);
         score.SetActive(true);
@@ -287,6 +305,10 @@ public class MenuManager : MonoBehaviour
         
         fishesV1TextAtPanel.text = "x" + HookCollisions.totalFishV1Count;      //These are on collect menu
         fishesV2TextAtPanel.text = "x" + HookCollisions.totalFishV2Count;
+        fishesV3TextAtPanel.text = "x" + HookCollisions.totalFishV3Count;
+        fishesV4TextAtPanel.text = "x" + HookCollisions.totalFishV4Count;
+        fishesV5TextAtPanel.text = "x" + HookCollisions.totalFishV5Count;
+        fishesV6TextAtPanel.text = "x" + HookCollisions.totalFishV6Count;
 
         timesPlayed++;
 

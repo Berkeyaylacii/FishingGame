@@ -31,7 +31,7 @@ public class MultiplierManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Obstacle") != null && MenuManager.isInGame == true )  //OBJECT CLOSE CALL
+        if (GameObject.FindGameObjectWithTag("Obstacle") != null && MenuManager.isInGame == true && float.Parse(multiplierText.text) < 2 )  //OBJECT CLOSE CALL
         {
             GameObject nearestObstacle;
             nearestObstacle = FindNearestObstacle();
@@ -46,7 +46,7 @@ public class MultiplierManager : MonoBehaviour
            
          }
 
-        if(GameObject.FindGameObjectWithTag("Shark") != null && MenuManager.isInGame == true) //SHARK CLOSE CALL
+        if(GameObject.FindGameObjectWithTag("Shark") != null && MenuManager.isInGame == true && float.Parse(multiplierText.text) < 2) //SHARK CLOSE CALL
         {
             GameObject nearestShark;
             nearestShark = FindNearestShark();

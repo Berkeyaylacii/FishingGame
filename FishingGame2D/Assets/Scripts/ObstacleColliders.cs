@@ -41,7 +41,7 @@ public class ObstacleColliders : MonoBehaviour
             }
            
 
-            if (hookedFish != null && Obstacles != null)
+            if (hookedFish != null && Obstacles != null && GameObject.FindGameObjectWithTag("Hook") != null )
             {
                 if (GameObject.FindGameObjectWithTag("Hook").activeSelf == true)
                 {   
